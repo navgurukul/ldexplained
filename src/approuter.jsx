@@ -1,8 +1,8 @@
+import config from "config";
 import React, { createContext, useState } from "react";
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import MyContainer from "./mycontainer.jsx";
 import AppContainer from "./appcontainer.jsx";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import config from 'config';
-
 
 export const Appcontext = createContext();
 
@@ -11,9 +11,9 @@ const AppRouter = () => {
   // const config = "/react/template/";
   return (
     <Router basename={`${config.publicPath}`}>
-
-    <Appcontext.Provider value={{ isAuth, setIsAuth }}>
-        <Route render={(props) => <AppContainer {...props} />} />
+      <Appcontext.Provider value={{ isAuth, setIsAuth }}>
+        <Route render={(props) => <MyContainer {...props} />} />
+        {/* <Route render={(props) => <AppContainer {...props} />} /> */}
       </Appcontext.Provider>
     </Router>
   );
