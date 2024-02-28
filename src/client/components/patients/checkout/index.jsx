@@ -45,7 +45,8 @@ const Checkout = (props) => {
               <div className="card">
                 <div className="card-body">
                   {/* Checkout Form */}
-                  <form action={`${config}/patient/booking-success`}>
+                  {/* <form action={`${config}/patient/booking-success`}> */}
+                  <form action={`/patient/booking-success`}>
                     {/* Personal Information */}
                     <div className="info-widget">
                       <h4 className="card-title">Personal Information</h4>
