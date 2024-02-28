@@ -12,7 +12,7 @@ import FeatherIcon from "feather-icons-react/build/FeatherIcon";
 import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 function Homebanner() {
-  const config = "/react/template";
+  // const config = "/react/template";
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleDateChange = (date) => {
@@ -37,15 +37,24 @@ function Homebanner() {
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   </p>
-                  <Link to="/patient/booking1" className="btn">
+                  {/* <Link to="/patient/booking1" className="btn">
                     Start a Consult
-                  </Link>
-                  <div className="banner-arrow-img">
+                  </Link> */}
+                  {/* <div className="banner-arrow-img">
                     <img src={down_arrow_img} className="img-fluid" alt="" />
-                  </div>
+                  </div> */}
                 </div>
-                <div className="search-box-one aos" data-aos="fade-up">
-                  <form action={`${config}/patient/search-doctor1`}>
+                <div
+                  className="search-box-one aos"
+                  data-aos="fade-up"
+                  style={{
+                    padding: "10px 20px",
+                    width: "900px", 
+                    border:"1px solid red",
+                  }}
+                >
+                  <span style={{margin:"40px 0px"}}>Book Appointment Form </span>
+                  <form action={`/patient/search-doctor1`}>
                     <div className="search-input search-line">
                       <i>
                         <FeatherIcon icon="search" style={{ width: "16px" }} />
@@ -62,7 +71,10 @@ function Homebanner() {
                       <i>
                         <FeatherIcon icon="map-pin" style={{ width: "16px" }} />
                       </i>
-                      <div className="form-group mb-0">
+                      <div
+                        className="form-group mb-0"
+                        style={{  }}
+                      >
                         <input
                           type="text"
                           className="form-control"
@@ -81,7 +93,11 @@ function Homebanner() {
                         </Link>
                       </div>
                     </div>
-                    <div className="search-input search-calendar-line">
+                    <div
+                      className="search-input search-calendar-line"
+                      style={{  
+                       width: "180px" }}
+                    >
                       <i>
                         <FeatherIcon
                           icon={"calendar"}
@@ -97,9 +113,16 @@ function Homebanner() {
                         />
                       </div>
                     </div>
-                    <div className="form-search-btn">
-                      <button className="btn" type="submit">
-                        Search
+                    <div
+                      className="form-search-btn"
+                      style={{  width: "150px" }}
+                    >
+                      <button
+                        className="btn"
+                        type="submit"
+                        style={{ width: "100%" }}
+                      >
+                        Search Docter
                       </button>
                     </div>
                   </form>
