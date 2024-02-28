@@ -25,12 +25,15 @@ import Graph2 from "../../../assets/images/shapes/graph-02.png";
 import Graph3 from "../../../assets/images/shapes/graph-03.png";
 import Graph4 from "../../../assets/images/shapes/graph-04.png";
 
+import FeatherIcon from "feather-icons-react/build/FeatherIcon";
+import DatePicker from "react-datepicker";
 import Footer from "../../footer";
 import Header from "../../header.jsx";
 
 const Dashboard = (props) => {
   const [count, setCount] = useState(1, 2, 3, 4);
 
+  const [selectedDate, setSelectedDate] = useState(null);
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -38,7 +41,9 @@ const Dashboard = (props) => {
   //   };
   //   this.handleSelect = this.handleSelect.bind(this);
   // }
-
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+   };
   return (
     <>
       <Header {...props} />
@@ -71,9 +76,9 @@ const Dashboard = (props) => {
                 <DashboardSidebar />
               </StickyBox>
             </div>
-            <div className="col-md-7 col-lg-8 col-xl-9">
-              <div>
-                <div className="row">
+            <div className="col-md-7 col-lg-8 col-xl-9"  >
+              <div  >
+                {/* <div className="row" style={{border:"1px solid red"}}>
                   <div className="col-12 col-md-6 col-lg-4 col-xl-3 patient-dashboard-top">
                     <div className="card">
                       <div className="card-body text-center">
@@ -124,9 +129,92 @@ const Dashboard = (props) => {
                       </div>
                     </div>
                   </div>
+                </div> */}
+                <div className="row patient-graph-col"   >
+                <div
+                  className="search-box-one aos"
+                  data-aos="fade-up"
+                  style={{
+                    padding: "10px 20px",
+                    width: "900px",   
+                    marginLeft:"130px",
+                  }}
+                >
+                  <span style={{margin:"40px 0px"}}>Book Appointment Form </span>
+                  <form action={`/patient/search-doctor1`}>
+                    <div className="search-input search-line">
+                      <i>
+                        <FeatherIcon icon="search" style={{ width: "16px" }} />
+                      </i>
+                      <div className="form-group mb-0">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Search doctors, clinics, hospitals, etc"
+                        />
+                      </div>
+                    </div>
+                    <div className="search-input search-map-line">
+                      <i>
+                        <FeatherIcon icon="map-pin" style={{ width: "16px" }} />
+                      </i>
+                      <div
+                        className="form-group mb-0"
+                        style={{  }}
+                      >
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Location"
+                        />
+                        <Link
+                          className="current-loc-icon current_location"
+                          to="#"
+                        >
+                          <i>
+                            <FeatherIcon
+                              icon="crosshair"
+                              style={{ width: "16px" }}
+                            />
+                          </i>
+                        </Link>
+                      </div>
+                    </div>
+                    <div
+                      className="search-input search-calendar-line"
+                      style={{  
+                       width: "180px" }}
+                    >
+                      <i>
+                        <FeatherIcon
+                          icon={"calendar"}
+                          // style={{ width: "16px" }}
+                        />
+                      </i>
+                      <div className="form-group mb-0">
+                        <DatePicker
+                          className="form-control datetimepicker"
+                          selected={selectedDate}
+                          onChange={handleDateChange}
+                          placeholderText="Date"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className="form-search-btn"
+                      style={{  width: "150px" }}
+                    >
+                      <button
+                        className="btn"
+                        type="submit"
+                        style={{ width: "100%" }}
+                      >
+                        Search Docter
+                      </button>
+                    </div>
+                  </form>
                 </div>
-                <div className="row patient-graph-col">
-                  <div className="col-12">
+                  {/* <div className="col-12">
                     <div className="card">
                       <div className="card-header">
                         <h4 className="card-title">Graph Status</h4>
@@ -212,7 +300,7 @@ const Dashboard = (props) => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="card">

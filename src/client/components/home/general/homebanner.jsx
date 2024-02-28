@@ -50,6 +50,7 @@ function Homebanner() {
                   style={{
                     padding: "10px 20px",
                     width: "900px", 
+                    border:"1px solid red",
                   }}
                 >
                   <span style={{margin:"40px 0px"}}>Book Appointment Form </span>
