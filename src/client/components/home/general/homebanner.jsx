@@ -6,6 +6,7 @@ import {
   down_arrow_img,
   generalbanner_img,
   header_icon,
+  Family_Image,
 } from "../../imagepath";
 import { Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react/build/FeatherIcon";
@@ -49,8 +50,7 @@ function Homebanner() {
                   data-aos="fade-up"
                   style={{
                     padding: "10px 20px",
-                    width: "900px", 
-                    border:"1px solid red",
+                    width: "900px",
                   }}
                 >
                   <span style={{margin:"40px 0px"}}>Book Appointment Form </span>
@@ -139,7 +139,7 @@ function Homebanner() {
               </div>
               <div className="col-lg-6">
                 <div className="banner-img aos" data-aos="fade-up">
-                  <img src={generalbanner_img} className="img-fluid" alt="" />
+                  <img src={Family_Image} className="img-fluid" alt="ddd" />
                   <div className="banner-img1">
                     <img src={banner_img1} className="img-fluid" alt="" />
                   </div>

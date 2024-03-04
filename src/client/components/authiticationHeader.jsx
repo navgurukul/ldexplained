@@ -16,6 +16,7 @@ import {
   home_10,
   home_11,
   logo,
+  Logo_Nav,
 } from "./imagepath";
 import { Link } from "react-router-dom";
 const AuthenticationHeader = () => {
@@ -33,22 +34,22 @@ const AuthenticationHeader = () => {
               </span>
             </Link>
             <Link to="/index" className="navbar-brand logo">
-              <img src={logo} className="img-fluid" alt="Logo" />
+              <img src={Logo_Nav} className="img-fluid" alt="Logo" />
             </Link>
           </div>
           <div className="main-menu-wrapper">
             <div className="menu-header">
-              <Link to="/index" className="menu-logo">
-                <img src={logo} className="img-fluid" alt="Logo" />
+              <Link to="/index" className="menu-logo" >
+                <img src={Logo_Nav} className="img-fluid" alt="Logo" />
               </Link>
               <Link id="menu_close" className="menu-close" to="#">
                 <i className="fas fa-times" />
               </Link>
             </div>
-            <ul className="main-nav">
+            <ul className="main-nav" style={{border:"1px solid red"}} >
               <li className="has-submenu megamenu">
                 <Link to="#">
-                  Home <i className="fas fa-chevron-down" />
+                  Homefff <i className="fas fa-chevron-down" />
                 </Link>
                 <ul className="submenu mega-submenu">
                   <li>

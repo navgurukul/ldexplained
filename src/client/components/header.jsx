@@ -32,6 +32,7 @@ import {
   logo_15,
   logo_svg,
   logo_white,
+  Logo_Nav
 } from "./imagepath";
 
 import Chart from "./patients/dashboard/chart";
@@ -203,7 +204,7 @@ const Header = () => {
                 </Link>
                 <Link to="/index-2" className="navbar-brand logo">
                   {pathnames.includes("/index-5") ? (
-                    <img src={logo_white} className="img-fluid" alt="Logo" />
+                    <img src={Logo_Nav} className="img-fluid" alt="Logo" />
                   ) : pathnames.includes(
                       "/react/template/Pharmacy/Pharmacy-index"
                     ) ? (
@@ -261,7 +262,7 @@ const Header = () => {
               <div className="main-menu-wrapper">
                 <div className="menu-header">
                   <Link to="/index-2" className="menu-logo">
-                    <img src={logo} className="img-fluid" alt="Logo" />
+                    <img src={Logo_Nav} className="img-fluid" alt="Logo" />
                   </Link>
                   <Link
                     to="#0"

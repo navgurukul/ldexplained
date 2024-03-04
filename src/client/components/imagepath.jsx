@@ -674,3 +674,5 @@ export { default as icongem } from "../assets/images/icons/gem.svg";
 export { default as client01 } from "../assets/images/clients/client-01.jpg";
 export { default as Home_13 } from "../assets/images/home-13.jpg";
 export { default as Home_12 } from "../assets/images/home-12.jpg";
+export { default as Family_Image } from "../assets/images/homepage/home-hero-banner 2.png";
+export { default as Logo_Nav } from "../assets/images/logo_Nav.png";
