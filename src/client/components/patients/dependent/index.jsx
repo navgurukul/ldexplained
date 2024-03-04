@@ -11,8 +11,11 @@ import Footer from "../../footer";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "../../header.jsx";
+import { useHistory } from "react-router-dom";
 
 const Dependent = (props) => {
+  const history = useHistory();
+
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -108,6 +111,12 @@ const Dependent = (props) => {
                               <td>
                                 <div className="table-action">
                                   <a
+                                    href="https://www.ldexplained.com/screening/get-started/"
+                                    className="btn btn-sm bg-info-light"
+                                  >
+                                    Do New Screening
+                                  </a>
+                                  {/* <a
                                     href="#edit_form"
                                     className="btn btn-sm bg-info-light"
                                     data-bs-toggle="modal"
@@ -122,7 +131,7 @@ const Dependent = (props) => {
                                     className="btn btn-sm bg-danger-light"
                                   >
                                     <i className="fas fa-times" /> Deactive
-                                  </a>
+                                  </a> */}
                                 </div>
                               </td>
                             </tr>
@@ -145,7 +154,7 @@ const Dependent = (props) => {
                               <td>B+</td>
                               <td>
                                 <div className="table-action">
-                                  <a
+                                  {/* <a
                                     href="#edit_form"
                                     className="btn btn-sm bg-info-light"
                                     data-bs-toggle="modal"
@@ -153,14 +162,19 @@ const Dependent = (props) => {
                                   >
                                     {" "}
                                     <i className="fas fa-edit" /> Edit
-                                  </a>
-                                  &nbsp;
+                                  </a> */}
                                   <a
+                                    href="https://www.ldexplained.com/screening/get-started/"
+                                    className="btn btn-sm bg-info-light"
+                                  >
+                                    Do New Screening
+                                  </a>
+                                  {/* <a
                                     href="#"
                                     className="btn btn-sm bg-danger-light"
                                   >
                                     <i className="fas fa-times" /> Deactive
-                                  </a>
+                                  </a> */}
                                 </div>
                               </td>
                             </tr>
@@ -183,7 +197,7 @@ const Dependent = (props) => {
                               <td>B+</td>
                               <td>
                                 <div className="table-action">
-                                  <a
+                                  {/* <a
                                     href="#edit_form"
                                     className="btn btn-sm bg-info-light"
                                     data-bs-toggle="modal"
@@ -198,6 +212,12 @@ const Dependent = (props) => {
                                     className="btn btn-sm bg-danger-light"
                                   >
                                     <i className="fas fa-times" /> Deactive
+                                  </a> */}
+                                  <a
+                                    href="https://www.ldexplained.com/screening/get-started/"
+                                    className="btn btn-sm bg-info-light"
+                                  >
+                                    Do New Screening
                                   </a>
                                 </div>
                               </td>
@@ -221,7 +241,7 @@ const Dependent = (props) => {
                               <td>A+</td>
                               <td>
                                 <div className="table-action">
-                                  <a
+                                  {/* <a
                                     href="#edit_form"
                                     className="btn btn-sm bg-info-light"
                                     data-bs-toggle="modal"
@@ -236,6 +256,12 @@ const Dependent = (props) => {
                                     className="btn btn-sm bg-danger-light"
                                   >
                                     <i className="fas fa-times" /> Deactive
+                                  </a> */}
+                                  <a
+                                    href="https://www.ldexplained.com/screening/get-started/"
+                                    className="btn btn-sm bg-info-light"
+                                  >
+                                    Do New Screening
                                   </a>
                                 </div>
                               </td>
