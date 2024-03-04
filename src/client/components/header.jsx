@@ -293,7 +293,7 @@ const Header = () => {
                       onClick={() => setMenu(!menu)}
                       className={`${menu === true ? "submenu " : ""}`}
                     >
-                      Home-i  <i className="fas fa-chevron-down" />
+                      Home <i className="fas fa-chevron-down" />
                     </Link>
                     <ul
                       className={`${
