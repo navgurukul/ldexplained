@@ -31,13 +31,13 @@ const Dependent = (props) => {
           <div className="row align-items-center inner-banner">
             <div className="col-md-12 col-12 text-center">
               <nav aria-label="breadcrumb" className="page-breadcrumb">
-                <h2 className="breadcrumb-title">Dependent</h2>
+                <h2 className="breadcrumb-title">Child Screening</h2>
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
                     <Link to="/index-2">Home</Link>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
-                    Dependent
+                    Child Screening
                   </li>
                 </ol>
               </nav>
@@ -82,11 +82,12 @@ const Dependent = (props) => {
                         <table className="table table-hover table-center mb-0">
                           <thead>
                             <tr>
-                              <th>Dependent</th>
-                              <th>Relationship</th>
-                              <th>gender</th>
-                              <th>Number</th>
-                              <th>Blood Group</th>
+                              <th>Child Name</th>
+                              {/* <th>Relationship</th> */}
+                              <th>DOB</th>
+                              <th>Gender</th>
+                              <th>Screening</th>
+                              {/* <th>Action</th> */}
                               <th>Action</th>
                             </tr>
                           </thead>
@@ -107,7 +108,7 @@ const Dependent = (props) => {
                               <td>Son</td>
                               <td>Male</td>
                               <td>303-297-6170</td>
-                              <td>AB+</td>
+                              {/* <td>AB+</td> */}
                               <td>
                                 <div className="table-action">
                                   <a
@@ -151,7 +152,7 @@ const Dependent = (props) => {
                               <td>Daughter</td>
                               <td>Female</td>
                               <td>360-822-9097</td>
-                              <td>B+</td>
+                              {/* <td>B+</td> */}
                               <td>
                                 <div className="table-action">
                                   {/* <a
@@ -194,7 +195,7 @@ const Dependent = (props) => {
                               <td>Father</td>
                               <td>Male</td>
                               <td>720-841-8299</td>
-                              <td>B+</td>
+                              {/* <td>B+</td> */}
                               <td>
                                 <div className="table-action">
                                   {/* <a
@@ -238,7 +239,7 @@ const Dependent = (props) => {
                               <td>Mother</td>
                               <td>Male</td>
                               <td>949-583-4370</td>
-                              <td>A+</td>
+                              {/* <td>A+</td> */}
                               <td>
                                 <div className="table-action">
                                   {/* <a
@@ -305,14 +306,14 @@ const Dependent = (props) => {
                   </label>
                   <input type="text" name="name" className="form-control" />
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label className="control-label mb-10">Relationship </label>
                   <input
                     type="text"
                     name="relationship"
                     className="form-control"
                   />
-                </div>
+                </div> */}
                 <div className="form-group">
                   <label className="control-label mb-10">Gender </label>
                   <select className="form-control" name="gender">

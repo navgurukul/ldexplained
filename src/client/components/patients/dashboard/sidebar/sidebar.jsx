@@ -42,7 +42,7 @@ export const DashboardSidebar = () => {
             <li className={pathname.includes("/dependent") ? "active" : ""}>
               <Link to="/patient/dependent">
                 <i className="fas fa-users"></i>
-                <span>Dependent</span>
+                <span>Child Screening Detail</span>
               </Link>
             </li>
             <li className={pathname.includes("/chat-doctor") ? "active" : ""}>

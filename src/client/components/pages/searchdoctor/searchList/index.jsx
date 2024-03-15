@@ -14,9 +14,24 @@ import {
   IMG_sp_05,
 } from "./img";
 
+import axios from 'axios';
 import MyComponent from "./mycomponent";
 
 const SearchList = () => {
+
+
+// // Define the API endpoint
+const apiUrl = 'http://ld_explained.navgurukul.org/doctors/getDoctorsDetails';
+
+// Make a GET request to the API
+axios.get(apiUrl)
+  .then(function (response) { 
+    console.log('Data fetched successfully:', response.data);
+  })
+  .catch(function (error) { 
+    console.error('Error fetching data:', error);
+  });
+
   return (
     <div>
       <div className="card">
