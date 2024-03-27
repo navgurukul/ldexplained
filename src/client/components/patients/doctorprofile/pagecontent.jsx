@@ -1,10 +1,95 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { IMG01, IMG02 } from "./img";
 import MyComponent from "./mycomponent";
 import { Link } from "react-router-dom";
 import { doctorthumb02 } from "../../imagepath";
+import { userRequestLdExplained } from "../../../../../requestMethod";
+import { useParams } from "react-router-dom";
+import { useValue } from "../../../../context/ContextProvider";
 
 const Pagecontent = () => {
+
+  const {
+    state: {},
+    dispatch,
+  } = useValue();
+
+  const [doctorData, setDoctorData] = useState([]);
+  const [doctorDegree, setDoctorDegree] = useState(null); // If expecting a single object
+
+  const { id: doctorId } = useParams();  
+
+  const getIndividualDocterData = async () =>{
+    try{
+      let response = await userRequestLdExplained.get(`/doctors/byId?dr_id=${doctorId}&key=today`);
+      console.log(response.data, "<==data single data");
+      setDoctorData(response?.data);
+      dispatch({ type: "DOCTER_INDIVIDUAL_DATA", payload: response.data });
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const addFavoriteDoctorBookmark = async () =>{
+    // const payload = {
+    //   dr_id: parseInt(4, 10), // Ensure it's an integer
+    //   parent_user_id: parseInt(4, 10), // aabhi ke liye hardcode hai
+    // };
+
+    const payload = {
+      dr_id: 4,
+      parent_user_id: 4
+    };
+
+    try{
+      let response = await userRequestLdExplained.post(`/favouriteDoctors/parents`, payload, {
+        headers:{
+          "Content-Type": "application/json",
+        }
+      }); 
+      console.log(response.data, "<==data single data");
+      setDoctorData(response?.data);
+      setDoctorDegree(response?.data[0]);
+
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(()=>{
+    console.log("indie useeffect");
+    getIndividualDocterData()
+  },[])
+  
+  const generateStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= Math.floor(rating)) {
+        stars.push(<i key={i} className="fas fa-star filled" />);
+      } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+        stars.push(<i key={i} className="fas fa-star-half-alt filled" />); // Assuming you have a half-filled star icon
+      } else {
+        stars.push(<i key={i} className="fas fa-star" />);
+      }
+    }
+    return stars;
+  };
+
+  const renderDegrees = () => {
+    if (!doctorData[0]?.degrees) {
+      return "Loading degrees...";
+    }
+  
+    return doctorData[0].degrees.map((degree, index) => (
+      <span key={index}>
+        {degree.degree}
+        {index < doctorData[0].degrees.length - 1 ? ', ' : ''}
+      </span>
+    ));
+  };
+
+  
+
   return (
     <>
       <div>
@@ -16,15 +101,33 @@ const Pagecontent = () => {
                   <img src={IMG01} className="img-fluid" alt="User Image" />
                 </div>
                 <div className="doc-info-cont">
-                  <h4 className="doc-name">Dr. Darren Elder</h4>
+                  {/* <h4 className="doc-name">Dr. Darren Elder</h4> */}
+                  <h4 className="doc-name">Dr. {doctorData[0]?.name} </h4>
+                  {/* <p className="doc-speciality">
+                    BDS, MDS - Oraldd &amp; Maxillofacial Surgery
+                  </p> */}
                   <p className="doc-speciality">
-                    BDS, MDS - Oral &amp; Maxillofacial Surgery
+                    {renderDegrees()}
                   </p>
                   <p className="doc-department">
                     <img src={IMG02} className="img-fluid" alt="Speciality" />
-                    Dentist
+                    {/* {doctorData[0]?.specialization[0].specialization[0]} */}
+
+                    {doctorData[0]?.specialization?.map((specialization, index) => (
+                        specialization.specialization.map((name, subIndex) => (
+                          <span key={`${index}-${subIndex}`}>{name}, </span>
+                        ))
+                      ))}
+
+
                   </p>
                   <div className="rating">
+                    {generateStars(doctorData[0]?.rating)}
+                    <span className="d-inline-block average-rating ms-1">
+                      ({doctorData[0]?.total_feedback})
+                    </span>
+                  </div>
+                  {/* <div className="rating">
                     <i className="fas fa-star filled" />
                     <i className="fas fa-star filled" />
                     <i className="fas fa-star filled" />
@@ -33,10 +136,10 @@ const Pagecontent = () => {
                     <span className="d-inline-block average-rating ms-1">
                       (35)
                     </span>
-                  </div>
+                  </div> */}
                   <div className="clinic-details">
                     <p className="doc-location">
-                      <i className="fas fa-map-marker-alt"></i> Newyork, USA -
+                      <i className="fas fa-map-marker-alt"></i> {doctorData[0]?.location}
                     </p>
 
                     {/* <i className="fas fa-map-marker-alt" /> Newyork, USA -{" "}
@@ -59,20 +162,23 @@ const Pagecontent = () => {
                       <i className="far fa-thumbs-up" /> 99%
                     </li>
                     <li>
-                      <i className="far fa-comment" /> 35 Feedback
+                      <i className="far fa-comment" />{doctorData[0]?.total_feedback} Feedback
                     </li>
                     <li>
-                      <i className="fas fa-map-marker-alt" /> Newyork, USA
+                      <i className="fas fa-map-marker-alt" /> {doctorData[0]?.location}
                     </li>
                     <li>
-                      <i className="far fa-money-bill-alt" /> $100 per hour{" "}
+                      <i className="far fa-money-bill-alt" /> {doctorData[0]?.booking_fee}
                     </li>
                   </ul>
                 </div>
                 <div className="doctor-action">
-                  <Link to="#" className="btn btn-white fav-btn">
+                  {/* <Link to="#" className="btn btn-white fav-btn">
                     <i className="far fa-bookmark" />
-                  </Link>
+                  </Link> */}
+                  <button onClick={addFavoriteDoctorBookmark} className="btn btn-white fav-btn">
+                    <i className="far fa-bookmark"></i>
+                  </button>
                   <Link
                     to="/doctor/chat-doctor"
                     className="btn btn-white msg-btn"

@@ -147,7 +147,7 @@ const HomeBookDoctor = () => {
                         <i className="fas fa-check-circle verified"></i>
                       </h3>
                       <p className="speciality">
-                        BDS, MDS - Oral & Maxillofacial Surgery
+                        BDS, MDS - Oral & Maxillofacial Surgery d
                       </p>
                       <div className="rating">
                         <i className="fas fa-star filled"></i>&nbsp;

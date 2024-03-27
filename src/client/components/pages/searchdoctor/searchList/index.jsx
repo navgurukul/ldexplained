@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import Lightbox from 'react-image-lightbox';
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
@@ -13,28 +13,58 @@ import {
   IMG_sp_04,
   IMG_sp_05,
 } from "./img";
-
-import axios from 'axios';
+ 
 import MyComponent from "./mycomponent";
+import { userRequestLdExplained } from "../../../../../../requestMethod";
+import { useValue } from "../../../../../context/ContextProvider";
 
 const SearchList = () => {
 
+  const {
+    state: {doctorFilteredList},
+    dispatch,
+  } = useValue();
 
-// // Define the API endpoint
-const apiUrl = 'http://ld_explained.navgurukul.org/doctors/getDoctorsDetails';
 
-// Make a GET request to the API
-axios.get(apiUrl)
-  .then(function (response) { 
-    console.log('Data fetched successfully:', response.data);
-  })
-  .catch(function (error) { 
-    console.error('Error fetching data:', error);
-  });
+  // console.log(doctorId, "docdnns");
+  console.log(doctorFilteredList, "docdnns");
+//docters list
+const [doctorList, setDoctorList] = useState(doctorFilteredList);
+
+// const getDoctersData = async () =>{
+//   try{
+//     let response = await userRequestLdExplained.get(`/doctors/getDoctorsDetails`);
+//     // console.log(response.data, "<==data List");
+//     setDoctorList(response.data)
+//   }catch(err){
+//     console.log(err)
+//   }
+// }
+
+useEffect(()=>{
+  // getDoctersData();
+},[doctorList])
+
+// Function to map specialization array to a visual representation, if necessary
+// const renderSpecialization = (specializations) => {
+//   return specializations.map((spec, index) => (
+//     <span key={index}>{spec.name}</span> // Assuming each specialization has a 'name' property
+//   ));
+// };
+
+// const handleViewProfileClick = (doctorId) => {
+//   console.log(doctorId, "fjdksjfsk gh");
+//   // Dispatch an action with the doctor's ID as the payload
+//   dispatch({ type: "DOCTER_ID", payload: doctorId });
+
+//   // If you need to navigate as well, include navigation logic here
+//   // navigate(`/patient/doctor-profile/${doctorId}`);
+// };
 
   return (
     <div>
-      <div className="card">
+      {doctorFilteredList.map((doctor, index) => (
+        <div key={index} className="card">
         <div className="card-body">
           <div className="doctor-widget">
             <div className="doc-info-left">
@@ -45,10 +75,10 @@ axios.get(apiUrl)
               </div>
               <div className="doc-info-cont">
                 <h4 className="doc-name">
-                  <Link to="/patient/doctor-profile">Dr. Ruby Perrin</Link>
+                  <Link to="/patient/doctor-profile">{doctor.name}</Link>
                 </h4>
                 <p className="doc-speciality">
-                  MDS - Periodontology and Oral Implantology, BDS
+                   {doctor.degrees[0].degree}
                 </p>
                 <h5 className="doc-department">
                   <img src={IMG_sp_02} className="img-fluid" alt="Speciality" />
@@ -66,7 +96,7 @@ axios.get(apiUrl)
                 </div>
                 <div className="clinic-details">
                   <p className="doc-location">
-                    <i className="fas fa-map-marker-alt"></i> Newyork, USA
+                    <i className="fas fa-map-marker-alt"></i> {doctor.location}
                   </p>
                   <div>
                     <MyComponent />
@@ -85,13 +115,14 @@ axios.get(apiUrl)
                     <i className="far fa-thumbs-up"></i> 98%
                   </li>
                   <li>
-                    <i className="far fa-comment"></i> 17 Feedback
+                    <i className="far fa-comment"></i> 17 Feedback d
                   </li>
                   <li>
-                    <i className="fas fa-map-marker-alt"></i> Florida, USA
+                    <i className="fas fa-map-marker-alt"></i> {doctor.location}
                   </li>
                   <li>
-                    <i className="far fa-money-bill-alt"></i> $300 - $1000{" "}
+                    {/* <i className="far fa-money-bill-alt"></i> {doctor.booking_fee} $300 - $1000{" "} */}
+                    <i className="far fa-money-bill-alt"></i> {doctor.booking_fee}
                     <OverlayTrigger
                       overlay={
                         <Tooltip id="tooltip-disabled">Lorem Ipsum</Tooltip>
@@ -105,9 +136,9 @@ axios.get(apiUrl)
                 </ul>
               </div>
               <div className="clinic-booking">
-                <Link to="/patient/doctor-profile" className="view-pro-btn">
-                  View Profile
-                </Link>
+              <Link to={`/patient/doctor-profile/${doctor.id}`} className="view-pro-btn">
+                View Profile
+              </Link>
                 <Link to="/patient/booking1" className="apt-btn">
                   Book Appointment
                 </Link>
@@ -115,7 +146,63 @@ axios.get(apiUrl)
             </div>
           </div>
         </div>
-      </div>
+      </div> 
+       ))}
+      
+
+      {/* {doctorList.map((doctor, index) => (
+        <div key={index} className="card">
+          <div className="card-body">
+            <div className="doctor-widget">
+              <div className="doc-info-left">
+                <div className="doctor-img">
+                  <Link to="/patient/doctor-profile">
+                    <img src={IMG01} className="img-fluid" alt="User" />
+                  </Link>
+                </div>
+                <div className="doc-info-cont">
+                  <h4 className="doc-name">
+                    <Link to="/patient/doctor-profile">{doctor.name}</Link>
+                  </h4>
+                  <p className="doc-speciality">
+                    {doctor.degrees.map((degree, i) => (
+                      <span key={i}>{degree.name}{i < doctor.degrees.length - 1 ? ', ' : ''}</span>
+                    ))}
+                  </p>
+                  <h5 className="doc-department">
+                    {renderSpecialization(doctor.specialization)}
+                  </h5>
+                  <div className="clinic-details">
+                    <p className="doc-location">
+                      <i className="fas fa-map-marker-alt"></i> {doctor.location}
+                    </p>
+                    <div>
+                      <MyComponent />
+                    </div>
+                  </div>
+                  <div className="clinic-services">
+                    {doctor.services.map((service, index) => (
+                      <span key={index}>{service.name}</span> // Adjust according to your data
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="doc-info-right">
+                <div className="clinic-booking">
+                  <Link to="/patient/doctor-profile" className="view-pro-btn">
+                    View Profile
+                  </Link>
+                  <Link to="/patient/booking1" className="apt-btn">
+                    Book Appointment
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))} 
+    */}
+
       <div className="card">
         <div className="card-body">
           <div className="doctor-widget">
@@ -187,7 +274,7 @@ axios.get(apiUrl)
                 </ul>
               </div>
               <div className="clinic-booking">
-                <Link to="/patient/doctor-profile" className="view-pro-btn">
+                <Link to="/patient/doctor-profile" onClick={() => handleViewProfileClick(doctor.id)} className="view-pro-btn">
                   View Profile
                 </Link>
                 <Link to="/patient/booking1" className="apt-btn">
@@ -198,7 +285,7 @@ axios.get(apiUrl)
           </div>
         </div>
       </div>
-      <div className="card">
+      {/* <div className="card">
         <div className="card-body">
           <div className="doctor-widget">
             <div className="doc-info-left">
@@ -445,7 +532,7 @@ axios.get(apiUrl)
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

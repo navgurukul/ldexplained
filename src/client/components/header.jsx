@@ -234,7 +234,14 @@ const Header = () => {
                       </div>
                     </div>
                   ) : (
-                    <img
+                    <>
+                    {/* <Link to="https://www.ldexplained.com/index.html"> */}
+                    <Link to="https://www.ldexplained.com/index.html">
+                    <img src={Logo_Nav} className="img-fluid"
+                      alt="Logo" />
+                    </Link>
+                   
+                    {/* <img
                       src={
                         pathnames === "/react/template/index-6" ||
                         pathnames === "/react/template/index-4"
@@ -255,7 +262,8 @@ const Header = () => {
                       }
                       className="img-fluid"
                       alt="Logo"
-                    />
+                    /> */}
+                     </>
                   )}
                 </Link>
               </div>
@@ -280,6 +288,7 @@ const Header = () => {
                   }`}
                 >
                   <li
+                  style={{marginRight:"65px"}}
                     className={`has-submenu megamenu  ${
                       pathnames.includes("index")
                         ? "active"
@@ -289,13 +298,14 @@ const Header = () => {
                     }`}
                   >
                     <Link
-                      to="#"
-                      onClick={() => setMenu(!menu)}
-                      className={`${menu === true ? "submenu " : ""}`}
+                      to="/"
+                      // onClick={() => setMenu(!menu)}
+                      // className={`${menu === true ? "submenu " : ""}`}
                     >
-                      Home <i className="fas fa-chevron-down" />
+                      Home
+                      {/* <i className="fas fa-chevron-down" /> */}
                     </Link>
-                    <ul
+                    {/* <ul
                       className={`${
                         menu === true
                           ? "submenu mega-submenu d-block"
@@ -676,10 +686,27 @@ const Header = () => {
                           </div>
                         </div>
                       </li>
-                    </ul>
+                    </ul> */}
                   </li>
 
                   <li
+                  style={{marginRight:"65px"}}
+                    className={`has-submenu megamenu  ${
+                      pathnames.includes("index")
+                        ? "active"
+                        : "" || pathnames.includes("home")
+                        ? "active"
+                        : ""
+                    }`}
+                  >
+                    <a href="https://www.ldexplained.com/about-us.html" target="_blank" rel="noopener noreferrer">
+                      About
+                    </a>
+                                      
+                  </li>
+
+                  <li
+                   style={{marginRight:"45px"}}
                     className={`has-submenu ${
                       url.includes("/doctor") ? "active" : ""
                     }`}
@@ -693,8 +720,255 @@ const Header = () => {
                         )
                       }
                     >
-                      Doctors <i className="fas fa-chevron-down" />
+                      Our Services <i className="fas fa-chevron-down" />
                     </Link>
+                    {isSideMenu == "doctors" ? (
+                      <ul
+                        className={`${
+                          isSideMenu == "doctors"
+                            ? "submenu d-block"
+                            : "submenu"
+                        }`}
+                      >
+                        <li
+                          className={
+                            pathnames.includes("doctor-dashboard")
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/doctor-dashboard"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Screening.
+                          </Link>
+                        </li>
+                        <li
+                          className={
+                            pathnames.includes("appointments") ? "active" : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/appointments"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Assessments
+                          </Link>
+                        </li>
+                        <li
+                          className={
+                            pathnames.includes("schedule-timing")
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/schedule-timing"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Therapies
+                          </Link>
+                        </li>
+                        <li
+                          className={
+                            pathnames.includes("my-patients") ? "active" : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/my-patients"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Special Ed
+                          </Link>
+                        </li>
+                        <li
+                          className={
+                            pathnames.includes("patient-profile")
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/patient-profile"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Patients  
+                          </Link>
+                        </li>
+                        <li
+                          className={
+                            pathnames.includes("chat-doctor") ? "active" : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/chat-doctor"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Parent Advise
+                          </Link>
+                        </li>
+                        <li
+                          className={
+                            pathnames.includes("dashboard") ? "active" : ""
+                          }
+                        >
+                          <Link
+                            to="/patient/dashboard"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Patient Dashboard
+                          </Link>
+                        </li>
+                        {/* <li
+                          className={
+                            pathnames.includes("invoice") ? "active" : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/invoice"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Invoices
+                          </Link>
+                        </li> */}
+                        {/* <li
+                          className={
+                            pathnames.includes("profile-setting")
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/profile-setting"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Profile Settings
+                          </Link>
+                        </li> */}
+                        {/* <li
+                          className={
+                            pathnames.includes("review") ? "active" : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/review"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Reviews
+                          </Link>
+                        </li> */}
+                        {/* <li
+                          className={
+                            pathnames.includes("doctor-register")
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          <Link
+                            to="/doctor/doctor-register"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Doctor Register
+                          </Link>
+                        </li> */}
+                        <li
+                          className={`has-submenu ${
+                            pathnames.includes("doctor-blog") ? "active" : ""
+                          }`}
+                        >
+                          <Link
+                            to="/doctor-blog"
+                            onClick={() => onhandleCloseMenu()}
+                          >
+                            Blog
+                          </Link>
+                          <ul className="submenu">
+                            <li>
+                              <Link
+                                to="/doctor-blog"
+                                onClick={() => onhandleCloseMenu()}
+                              >
+                                Blog
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/blog/blog-details"
+                                onClick={() => onhandleCloseMenu()}
+                              >
+                                Blog view
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/blog/doctor-add-blog"
+                                onClick={() => onhandleCloseMenu()}
+                              >
+                                Add Blog
+                              </Link>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    ) : (
+                      ""
+                    )}
+                  </li>
+
+                  <li
+                  style={{marginRight:"65px"}}
+                    className={`has-submenu megamenu  ${
+                      pathnames.includes("index")
+                        ? "active"
+                        : "" || pathnames.includes("home")
+                        ? "active"
+                        : ""
+                    }`}
+                  >
+                    <Link
+                      to="#" 
+                    >
+                      Aids 
+                    </Link>
+                     
+                  </li>
+
+                  <li
+                  style={{marginRight:"5px"}}
+                    className={`has-submenu megamenu  ${
+                      pathnames.includes("index")
+                        ? "active"
+                        : "" || pathnames.includes("home")
+                        ? "active"
+                        : ""
+                    }`}
+                  >
+                    <Link
+                      to="#" 
+                    >
+                      LDExplained Knowledge Hub 
+                    </Link>
+                     
+                  </li>
+
+                  <li
+                   style={{marginRight:"0px"}}
+                    className={`has-submenu ${
+                      url.includes("/doctor") ? "active" : ""
+                    }`}
+                  >
+                    {/* <Link
+                      to="#"
+                      className={isSideMenu == "doctors" ? "subdrop " : ""}
+                      onClick={() =>
+                        toggleSidebar(
+                          isSideMenu == "doctors" ? "submenu" : "doctors"
+                        )
+                      }
+                    >
+                      Doctors <i className="fas fa-chevron-down" />
+                    </Link> */}
                     {isSideMenu == "doctors" ? (
                       <ul
                         className={`${
@@ -876,12 +1150,15 @@ const Header = () => {
                       ""
                     )}
                   </li>
+
+
                   <li
+                   style={{marginRight:"0px"}}
                     className={`has-submenu ${
                       url.includes("/patient") ? "active" : ""
                     }`}
                   >
-                    <Link
+                    {/* <Link
                       to="#"
                       className={isSideMenu == "patients" ? "subdrop" : ""}
                       onMouseEnter={() =>
@@ -891,7 +1168,7 @@ const Header = () => {
                       }
                     >
                       Patients <i className="fas fa-chevron-down" />
-                    </Link>
+                    </Link> */}
                     {isSideMenu == "patients" ? (
                       <ul
                         className={`${
@@ -1202,7 +1479,7 @@ const Header = () => {
                       url.includes("/Pharmacy") ? "active" : ""
                     }`}
                   >
-                    <Link
+                    {/* <Link
                       to="#"
                       className={isSideMenu == "pharmacy" ? "subdrop" : ""}
                       onMouseEnter={() =>
@@ -1212,7 +1489,7 @@ const Header = () => {
                       }
                     >
                       Pharmacy <i className="fas fa-chevron-down" />
-                    </Link>
+                    </Link> */}
                     {isSideMenu == "pharmacy" ? (
                       <ul
                         className={`${
@@ -1316,7 +1593,7 @@ const Header = () => {
                       url.includes("/pages") ? "active" : ""
                     }`}
                   >
-                    <Link
+                    {/* <Link
                       to="#"
                       className={isSideMenu == "pages" ? "subdrop" : ""}
                       onMouseEnter={() =>
@@ -1326,7 +1603,7 @@ const Header = () => {
                       }
                     >
                       Pages <i className="fas fa-chevron-down" />
-                    </Link>
+                    </Link> */}
                     {isSideMenu == "pages" ? (
                       <ul
                         className={`${
@@ -1786,7 +2063,7 @@ const Header = () => {
                       url.includes("/blog") ? "active" : ""
                     }`}
                   >
-                    <Link
+                    {/* <Link
                       to="#"
                       className={isSideMenu == "blog" ? "subdrop" : ""}
                       onMouseEnter={() =>
@@ -1794,7 +2071,7 @@ const Header = () => {
                       }
                     >
                       Blog <i className="fas fa-chevron-down" />
-                    </Link>
+                    </Link> */}
                     {isSideMenu == "blog" ? (
                       <ul
                         className={`${
@@ -1843,7 +2120,7 @@ const Header = () => {
                     )}
                   </li>
                   <li className="has-submenu">
-                    <Link
+                    {/* <Link
                       to="#"
                       // target="_blank"
                       className={isSideMenu == "admin" ? "subdrop" : ""}
@@ -1855,7 +2132,7 @@ const Header = () => {
                     >
                       Admin
                       <i className="fas fa-chevron-down" />
-                    </Link>
+                    </Link> */}
                     {isSideMenu == "admin" ? (
                       <ul
                         className={`${

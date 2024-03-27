@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Select from "react-select";
 // import SearchFilter from "./searchFilter";
 import SearchList from "./searchList";
@@ -8,8 +8,18 @@ import Footer from "../../footer";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { userRequestLdExplained } from "../../../../../requestMethod";
+import {useValue} from "../../../../context/ContextProvider";
 
 const SearchDoctor = (props) => {
+
+  const {
+    state: {},
+    dispatch,
+  } = useValue();
+ 
+
+  // console.log(doctorFilteredList, "doctorFilteredList");
   // let pathname = props.location.pathname;
 
   // if (props.location.pathname === "/patient/search-doctor1") {
@@ -22,11 +32,89 @@ const SearchDoctor = (props) => {
   //   { value: "Lastest", label: "Lastest" },
   //   { value: "Free", label: "Free" },
   // ];
+
+  // http://ld_explained.navgurukul.org/doctors/getDoctorsDetailsByFilter?gender=male&specialization=e
+
+  const [doctorList, setDoctorList] = useState([]);
+
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedGenders, setSelectedGenders] = useState([]);
+  const [selectedSpecialists, setSelectedSpecialists] = useState([]);
+  const [renderOnClearBtn, setRenderOnClearBtn] = useState(false)
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
+  const handleGenderChange = (e) => {
+    const { value, checked } = e.target;
+    const newGenders = checked
+      ? [...selectedGenders, value]
+      : selectedGenders.filter(gender => gender !== value);
+    setSelectedGenders(newGenders);
+  };
+
+  const handleSpecialistChange = (e) => {
+    const { value, checked } = e.target;
+    const newSpecialists = checked
+      ? [...selectedSpecialists, value]
+      : selectedSpecialists.filter(specialist => specialist !== value);
+    setSelectedSpecialists(newSpecialists);
+  };
+
+  const concatenateValues = (array) => array.join('').toLowerCase();
+
+
+  // const handleSearch = () => {
+  //   console.log("Selected Genders:", selectedGenders);
+  //   console.log("Selected Specialists:", selectedSpecialists);
+  //   // Perform API call or any other action here
+  //   searchDoctorFilter();
+  // };
+
+  const handleSearch = async () => {
+    
+    console.log("gg");
+    const concatenatedGenders = concatenateValues(selectedGenders);
+    const concatenatedSpecialists = concatenateValues(selectedSpecialists);
+
+    let queryString = '';
+    if (concatenatedGenders || concatenatedSpecialists) {
+      queryString += '?';
+      if (concatenatedGenders) queryString += `gender=${concatenatedGenders}`;
+      if (concatenatedGenders && concatenatedSpecialists) queryString += '&';
+      if (concatenatedSpecialists) queryString += `specialization=${concatenatedSpecialists}`;
+    }
+
+    try {
+      let response = await userRequestLdExplained.get(`/doctors/getDoctorsDetailsByFilter${queryString}`);
+      console.log(response.data, "<==data List");
+      setDoctorList(response.data);
+      dispatch({ type: "DOCTER_FILTERED_LIST", payload: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+useEffect(()=>{
+  handleSearch()
+},[renderOnClearBtn])
+  
+// const concatenatedGenders = concatenateValues(selectedGenders).toLowerCase() || "";
+// const concatenatedSpecialists = concatenateValues(selectedSpecialists).toLowerCase() || "";
+
+// console.log(concatenatedGenders); // "MaleFemale"
+// console.log(concatenatedSpecialists); // "OrthopedicNeurology"
+
+
+
+  const clearArray = () => {
+    setSelectedGenders([]);  
+    setSelectedSpecialists([]);  
+    setRenderOnClearBtn(!renderOnClearBtn)
+    handleSearch()
+  }
+
   return (
     <div>
       <Header {...props} />
@@ -84,26 +172,30 @@ const SearchDoctor = (props) => {
                           <input
                             type="checkbox"
                             name="gender_type"
+                            value="Male"
                             defaultChecked=""
+                            onChange={handleGenderChange} 
+                            checked={selectedGenders.includes("Male")}
                           />
                           <span className="checkmark" /> Male Doctor
                         </label>
                       </div>
                       <div>
                         <label className="custom_check">
-                          <input type="checkbox" name="gender_type" />
+                          <input type="checkbox" value="Female" checked={selectedGenders.includes("Female")} name="gender_type" onChange={handleGenderChange} />
                           <span className="checkmark" /> Female Doctor
                         </label>
                       </div>
                     </div>
                     <div className="filter-widget">
-                      <h4>Select Specialist</h4>
+                      <h4>Select Specialist progree_api</h4>
                       <div>
                         <label className="custom_check">
                           <input
                             type="checkbox"
                             name="select_specialist"
-                            defaultChecked=""
+                            checked={selectedSpecialists.includes("Urology")} value="Urology" 
+                            onChange={handleSpecialistChange} 
                           />
                           <span className="checkmark" /> Urology
                         </label>
@@ -113,40 +205,40 @@ const SearchDoctor = (props) => {
                           <input
                             type="checkbox"
                             name="select_specialist"
-                            defaultChecked=""
+                            checked={selectedSpecialists.includes("Neurology")}
+                            value="Neurology"
+                            onChange={handleSpecialistChange} 
                           />
                           <span className="checkmark" /> Neurology
                         </label>
                       </div>
                       <div>
                         <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
+                          <input type="checkbox" value="Dentist" name="select_specialist" 
+                            checked={selectedSpecialists.includes("Dentist")} onChange={handleSpecialistChange}  />
                           <span className="checkmark" /> Dentist
                         </label>
                       </div>
                       <div>
                         <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
+                          <input type="checkbox" value="Orthopedic" checked={selectedSpecialists.includes("Orthopedic")} name="select_specialist"  onChange={handleSpecialistChange}  />
                           <span className="checkmark" /> Orthopedic
                         </label>
                       </div>
                       <div>
                         <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
+                          <input type="checkbox"  value="Cardiologist" checked={selectedSpecialists.includes("Cardiologist")} name="select_specialist" onChange={handleSpecialistChange}/>
                           <span className="checkmark" /> Cardiologist
                         </label>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark" /> Cardiologist
-                        </label>
-                      </div>
+                      </div> 
                     </div>
                     <div className="btn-search">
-                      <button type="button" className="btn w-100">
-                        Search
-                      </button>
+                    <button type="button" className="btn w-100" onClick={handleSearch}>
+                      Search
+                    </button>
+                    <button type="button" className="btn w-100" style={{marginTop:"20px"}} onClick={clearArray}>
+                      Clear Filter
+                    </button>
                     </div>
                   </div>
                 </div>
