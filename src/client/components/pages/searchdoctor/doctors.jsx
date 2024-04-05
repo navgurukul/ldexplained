@@ -142,7 +142,7 @@ const Doctors = () => {
                     </span>
                   </li>
                   <li>
-                    <FiThumbsUp /> 98%{" "}
+                    <FiThumbsUp /> 98d%{" "}
                     <span className="votes">(252 Votes)</span>
                   </li>
                   <li>

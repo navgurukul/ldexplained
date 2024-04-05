@@ -1,8 +1,29 @@
 import React from "react";
+import { useEffect } from "react";
 import { IMG01, IMG02, IMG03, IMG04, IMG07, IMG08 } from "./img";
 import { patient, patient1, patient2 } from "../../Pharmacy/image";
 import { Link } from "react-router-dom";
+import { useValue } from "../../../../context/ContextProvider";
+
 const Content = () => {
+
+  const {
+    state: {doctorIndividualData},
+    dispatch,
+  } = useValue();
+
+  useEffect(() => {
+    // console.log("Full doctorIndividualData:", doctorIndividualData);
+    if (doctorIndividualData) {
+      // console.log("Attempting to log about_us:", doctorIndividualData?.about_us);
+    }
+  }, [doctorIndividualData]);
+  
+  const formatDate = (date) => {
+    const d = new Date(date);
+    return `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
+  };
+
   return (
     <div>
       <div className="card">
@@ -58,14 +79,7 @@ const Content = () => {
                   <div className="widget about-widget">
                     <h4 className="widget-title">About Me</h4>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum.
+                     {doctorIndividualData[0]?.about_me}
                     </p>
                   </div>
                   {/* /About Details */}
@@ -73,36 +87,28 @@ const Content = () => {
                   <div className="widget education-widget">
                     <h4 className="widget-title">Education</h4>
                     <div className="experience-box">
-                      <ul className="experience-list">
-                        <li>
-                          <div className="experience-user">
-                            <div className="before-circle" />
-                          </div>
-                          <div className="experience-content">
-                            <div className="timeline-content">
-                              <Link to="#/" className="name">
-                                American Dental Medical University
-                              </Link>
-                              <div>BDS</div>
-                              <span className="time">1998 - 2003</span>
+                    <ul className="experience-list">
+                        {doctorIndividualData[0]?.degrees?.map((degree, index) => (
+                          <li key={index}>
+                            <div className="experience-user">
+                              <div className="before-circle"></div>
                             </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="experience-user">
-                            <div className="before-circle" />
-                          </div>
-                          <div className="experience-content">
-                            <div className="timeline-content">
-                              <Link to="#/" className="name">
-                                American Dental Medical University
-                              </Link>
-                              <div>MDS</div>
-                              <span className="time">2003 - 2005</span>
+                            <div className="experience-content">
+                              <div className="timeline-content">
+                                {/* Adjust the Link as necessary. If you want to navigate somewhere, replace "#" with your desired path */}
+                                <Link to="#" className="name">
+                                  {degree.college_name}
+                                </Link>
+                                <div>{degree.degree}</div>
+                                <span className="time">
+                                  {new Date(degree.start_date).getFullYear()} - {new Date(degree.end_date).getFullYear()}
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        </li>
+                          </li>
+                        ))}
                       </ul>
+                       
                     </div>
                   </div>
                   {/* /Education Details */}
@@ -111,51 +117,22 @@ const Content = () => {
                     <h4 className="widget-title">Work &amp; Experience</h4>
                     <div className="experience-box">
                       <ul className="experience-list">
-                        <li>
+                      {doctorIndividualData[0]?.experience?.map((item, index) => (
+                        <li key={index}>
                           <div className="experience-user">
-                            <div className="before-circle" />
+                            <div className="before-circle"></div>
                           </div>
                           <div className="experience-content">
                             <div className="timeline-content">
-                              <Link to="#/" className="name">
-                                Glowing Smiles Family Dental Clinic
-                              </Link>
-                              <span className="time">
-                                2010 - Present (5 years)
-                              </span>
+                              <Link to="#" className="name">{item.hospital_name}</Link>
+                              <div>{item.designation}</div>
+                             <span className="time">
+                              {formatDate(item.start_date)} - {formatDate(item.end_date)}
+                            </span>
                             </div>
                           </div>
                         </li>
-                        <li>
-                          <div className="experience-user">
-                            <div className="before-circle" />
-                          </div>
-                          <div className="experience-content">
-                            <div className="timeline-content">
-                              <Link to="#/" className="name">
-                                Comfort Care Dental Clinic
-                              </Link>
-                              <span className="time">
-                                2007 - 2010 (3 years)
-                              </span>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="experience-user">
-                            <div className="before-circle" />
-                          </div>
-                          <div className="experience-content">
-                            <div className="timeline-content">
-                              <Link to="#/" className="name">
-                                Dream Smile Dental Practice
-                              </Link>
-                              <span className="time">
-                                2005 - 2007 (2 years)
-                              </span>
-                            </div>
-                          </div>
-                        </li>
+                      ))}
                       </ul>
                     </div>
                   </div>
@@ -165,61 +142,20 @@ const Content = () => {
                     <h4 className="widget-title">Awards</h4>
                     <div className="experience-box">
                       <ul className="experience-list">
-                        <li>
-                          <div className="experience-user">
-                            <div className="before-circle" />
-                          </div>
-                          <div className="experience-content">
-                            <div className="timeline-content">
-                              <p className="exp-year">July 2019</p>
-                              <h4 className="exp-title">Humanitarian Award</h4>
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Proin a ipsum tellus. Interdum
-                                et malesuada fames ac ante ipsum primis in
-                                faucibus.
-                              </p>
+                      {doctorIndividualData[0]?.awards?.map((award, index) => (
+                          <li key={index}>
+                            <div className="experience-user">
+                              <div className="before-circle"></div>
                             </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="experience-user">
-                            <div className="before-circle" />
-                          </div>
-                          <div className="experience-content">
-                            <div className="timeline-content">
-                              <p className="exp-year">March 2011</p>
-                              <h4 className="exp-title">
-                                Certificate for International Volunteer Service
-                              </h4>
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Proin a ipsum tellus. Interdum
-                                et malesuada fames ac ante ipsum primis in
-                                faucibus.
-                              </p>
+                            <div className="experience-content">
+                              <div className="timeline-content">
+                                <h4 className="exp-title">{award.award}</h4>
+                                <p>{award.description}</p>
+                                <p className="exp-year">{formatDate(award.date)}</p>
+                              </div>
                             </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="experience-user">
-                            <div className="before-circle" />
-                          </div>
-                          <div className="experience-content">
-                            <div className="timeline-content">
-                              <p className="exp-year">May 2008</p>
-                              <h4 className="exp-title">
-                                The Dental Professional of The Year Award
-                              </h4>
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Proin a ipsum tellus. Interdum
-                                et malesuada fames ac ante ipsum primis in
-                                faucibus.
-                              </p>
-                            </div>
-                          </div>
-                        </li>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -228,25 +164,30 @@ const Content = () => {
                   <div className="service-list">
                     <h4>Services</h4>
                     <ul className="clearfix">
-                      <li>Tooth cleaning </li>
-                      <li>Root Canal Therapy</li>
-                      <li>Implants</li>
-                      <li>Composite Bonding</li>
-                      <li>Fissure Sealants</li>
-                      <li>Surgical Extractions</li>
+                      {doctorIndividualData[0]?.services?.map((service, index) => (
+                        service.service_name.map((name, subIndex) => (
+                          <li key={`${index}-${subIndex}`}>{name}</li>
+                        ))
+                      ))}
                     </ul>
+                    
                   </div>
                   {/* /Services List */}
                   {/* Specializations List */}
                   <div className="service-list">
                     <h4>Specializations</h4>
                     <ul className="clearfix">
-                      <li>Children Care</li>
+                      {/* <li>Children Care</li>
                       <li>Dental Care</li>
                       <li>Oral and Maxillofacial Surgery </li>
                       <li>Orthodontist</li>
                       <li>Periodontist</li>
-                      <li>Prosthodontics</li>
+                      <li>Prosthodontics</li> */}
+                      {doctorIndividualData[0]?.specialization?.map((specialization, index) => (
+                        specialization.specialization.map((name, subIndex) => (
+                          <li key={`${index}-${subIndex}`}>{name}</li>
+                        ))
+                      ))}
                     </ul>
                   </div>
                   {/* /Specializations List */}

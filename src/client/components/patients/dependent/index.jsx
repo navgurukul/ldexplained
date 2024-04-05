@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DashboardSidebar from "../dashboard/sidebar/sidebar.jsx";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
@@ -12,6 +12,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "../../header.jsx";
 import { useHistory } from "react-router-dom";
+import { userRequestLdExplained } from "../../../../../requestMethod.js";
 
 const Dependent = (props) => {
   const history = useHistory();
@@ -19,9 +20,53 @@ const Dependent = (props) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [child, setChildData] = useState([])
   const handleChange = (date) => {
     setDate(date);
   };
+
+  // http://ld_explained.navgurukul.org/children/parents?user_id=2
+
+  const fetchChildScreeningData = async () =>{
+    try{
+      let response = await userRequestLdExplained.get(`/children/parents?user_id=${2}`);
+      console.log(response.data[1].childrenDetails, "<==data List children");
+      setChildData(response.data[1].childrenDetails)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(()=>{
+    fetchChildScreeningData();
+  },[])
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const payload = {
+      name: formData.get('name'),
+      gender: formData.get('gender'),
+      dob: formData.get('dob'),
+      // Add other fields if needed
+    };
+    console.log('Payload:', payload); // Log the payload or send it to your desired endpoint
+    // Clear the form or close the modal after submission if needed
+    // setShow(false);
+    // event.target.reset();
+    addChildDataForScreening(payload);
+  };
+
+const addChildDataForScreening = async (payload)=>{
+  try{
+    let response = await userRequestLdExplained.post('/children/parents', payload,{
+    
+    });
+    console.log(response, "<=child api");
+  }catch (err) {
+    console.error(err)
+  }
+}
 
   return (
     <div>
@@ -31,13 +76,13 @@ const Dependent = (props) => {
           <div className="row align-items-center inner-banner">
             <div className="col-md-12 col-12 text-center">
               <nav aria-label="breadcrumb" className="page-breadcrumb">
-                <h2 className="breadcrumb-title">Dependent</h2>
+                <h2 className="breadcrumb-title">Child Screening</h2>
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
                     <Link to="/index-2">Home</Link>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
-                    Dependent
+                    Child Screening
                   </li>
                 </ol>
               </nav>
@@ -82,60 +127,50 @@ const Dependent = (props) => {
                         <table className="table table-hover table-center mb-0">
                           <thead>
                             <tr>
-                              <th>Dependent</th>
-                              <th>Relationship</th>
-                              <th>gender</th>
-                              <th>Number</th>
-                              <th>Blood Group</th>
+                              <th>Child Name</th>
+                              {/* <th>Relationship</th> */}
+                              <th>DOB</th>
+                              <th>Gender</th>
+                              <th>Screening</th>
+                              {/* <th>Action</th> */}
                               <th>Action</th>
                             </tr>
                           </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <h2 className="table-avatar">
-                                  <span className="avatar avatar-sm me-2">
-                                    <img
-                                      className="avatar-img rounded-circle"
-                                      src={son}
-                                      alt="User Image"
-                                    />
-                                  </span>
-                                  Christopher
-                                </h2>
-                              </td>
-                              <td>Son</td>
-                              <td>Male</td>
-                              <td>303-297-6170</td>
-                              <td>AB+</td>
-                              <td>
+
+                          <tbody  >
+                            {child.map((childItem, index) => (
+                              <tr key={index} style={{border:"1px solid red"}}>
+                                <td>
+                                  <h2 className="table-avatar">
+                                    <span className="avatar avatar-sm me-2">
+                                      <img
+                                        className="avatar-img rounded-circle"
+                                        src={son} // Consider dynamically setting the image based on childItem properties
+                                        alt="User Image"
+                                      />
+                                    </span>
+                                    {childItem.name}
+                                  </h2>
+                                </td>
+                                <td>{childItem.dos.split('T')[0]}</td> {/* Assuming 'dos' represents Date of Birth (DOB) */}
+                                <td>{childItem.gender}</td>
+                                <td>Screening TBD</td> {/* Replace or update with actual data if available */}
+                                <td>
                                 <div className="table-action">
-                                  <a
-                                    href="https://www.ldexplained.com/screening/get-started/"
+                                  <button
                                     className="btn btn-sm bg-info-light"
+                                    onClick={() => history.push('/path-to-screening')}
                                   >
                                     Do New Screening
-                                  </a>
-                                  {/* <a
-                                    href="#edit_form"
-                                    className="btn btn-sm bg-info-light"
-                                    data-bs-toggle="modal"
-                                    onClick={() => setEdit(true)}
-                                  >
-                                    {" "}
-                                    <i className="fas fa-edit" /> Edit
-                                  </a>
-                                  &nbsp;
-                                  <a
-                                    href="#"
-                                    className="btn btn-sm bg-danger-light"
-                                  >
-                                    <i className="fas fa-times" /> Deactive
-                                  </a> */}
+                                  </button>
                                 </div>
-                              </td>
-                            </tr>
-                            <tr>
+                                </td>
+                              </tr>
+                            ))}
+
+
+                            
+                             <tr>
                               <td>
                                 <h2 className="table-avatar">
                                   <span className="avatar avatar-sm me-2">
@@ -151,7 +186,7 @@ const Dependent = (props) => {
                               <td>Daughter</td>
                               <td>Female</td>
                               <td>360-822-9097</td>
-                              <td>B+</td>
+                              {/* <td>B+</td> */}
                               <td>
                                 <div className="table-action">
                                   {/* <a
@@ -194,7 +229,7 @@ const Dependent = (props) => {
                               <td>Father</td>
                               <td>Male</td>
                               <td>720-841-8299</td>
-                              <td>B+</td>
+                              {/* <td>B+</td> */}
                               <td>
                                 <div className="table-action">
                                   {/* <a
@@ -238,7 +273,7 @@ const Dependent = (props) => {
                               <td>Mother</td>
                               <td>Male</td>
                               <td>949-583-4370</td>
-                              <td>A+</td>
+                              {/* <td>A+</td> */}
                               <td>
                                 <div className="table-action">
                                   {/* <a
@@ -266,7 +301,10 @@ const Dependent = (props) => {
                                 </div>
                               </td>
                             </tr>
-                          </tbody>
+                          </tbody> 
+                          
+
+
                         </table>
                       </div>
                     </div>
@@ -292,6 +330,7 @@ const Dependent = (props) => {
         <Modal.Body>
           <div className="modal-body">
             <form
+              onSubmit={handleSubmit}
               action="#"
               encType="multipart/form-data"
               autoComplete="off"
@@ -305,14 +344,14 @@ const Dependent = (props) => {
                   </label>
                   <input type="text" name="name" className="form-control" />
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label className="control-label mb-10">Relationship </label>
                   <input
                     type="text"
                     name="relationship"
                     className="form-control"
                   />
-                </div>
+                </div> */}
                 <div className="form-group">
                   <label className="control-label mb-10">Gender </label>
                   <select className="form-control" name="gender">
@@ -342,7 +381,7 @@ const Dependent = (props) => {
               </div>
               <div className="modal-footer text-center">
                 <button type="submit" className="btn btn-primary submit-btn">
-                  Save Changes
+                  Submit Details
                 </button>
               </div>
             </form>

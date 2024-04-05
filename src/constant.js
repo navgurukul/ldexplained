@@ -1,0 +1,2 @@
+export const API_TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJwcmFiaGF0QG5hdmd1cnVrdWwub3JnIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzEyMjk1NzQyLCJleHAiOjE3MTIyOTkzNDJ9.-TxV-Zd8Kth3sTqvsTfulS9ZiQ8HjlZIHLfeISdnybo";

@@ -148,7 +148,7 @@ const MyContainer = function (props) {
               />
                 <Route path="/patient/booking1" exact component={Booking} />
                 <Route
-                path="/patient/doctor-profile"
+                path="/patient/doctor-profile/:id"
                 exact
                 component={DoctorProfile}
               />

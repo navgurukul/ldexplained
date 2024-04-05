@@ -5,6 +5,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import logo from "../assets/images/logo.png";
 import FeatherIcon from "feather-icons-react/build/FeatherIcon";
+import { Logo_Nav } from "./imagepath";
 
 const Footer = (props) => {
   //Aos
@@ -44,46 +45,61 @@ const Footer = (props) => {
                   <div className="col-lg-3 col-md-4">
                     <div className="footer-widget footer-about">
                       <div className="footer-logo">
-                        <img src={logo} alt="logo" />
+                        <img src={Logo_Nav} alt="logo" />
                       </div>
-                      <div className="footer-about-content">
+                      {/* <div className="footer-about-content">
                         <p>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit, sed do eiusmod tempor incididunt ut labore.
                         </p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
+                  {/* <div className="col-lg-2 col-md-4">
+                    <div className="footer-widget footer-menu">
+                      
+                    </div>
+                  </div> */}
                   <div className="col-lg-2 col-md-4">
                     <div className="footer-widget footer-menu">
-                      <h2 className="footer-title">For Patients</h2>
+                    <h2 className="footer-title">About Us</h2>
+                      <h2 className="footer-title">Services</h2>
                       <ul>
                         <li>
                           <Link to="/patient/search-doctor1">
-                            Search for Doctors
+                            Screening
                           </Link>
                         </li>
                         <li>
-                          <Link to="/login">Login</Link>
+                          <Link to="/login">Assessment</Link>
                         </li>
                         <li>
-                          <Link to="/register">Register</Link>
+                          <Link to="/register">Special Education</Link>
+                        </li>
+                        <li>
+                          <Link to="/register">Parent Advice</Link>
                         </li>
                       </ul>
                     </div>
                   </div>
                   <div className="col-lg-2 col-md-4">
                     <div className="footer-widget footer-menu">
-                      <h2 className="footer-title">For Doctors</h2>
+                      <h2 className="footer-title">LDExplained Knowledge Hub</h2>
                       <ul>
                         <li>
-                          <Link to="/doctor/appointments">Appointments</Link>
+                          <Link to="/doctor/appointments">Learning Disabilities</Link>
                         </li>
                         <li>
-                          <Link to="/doctor/chat-doctor">Chat</Link>
+                          <Link to="/doctor/chat-doctor">Manging Disabilities</Link>
                         </li>
                         <li>
-                          <Link to="/login">Login</Link>
+                          <Link to="/login">Educational Strategies</Link>
+                        </li>
+                        <li>
+                          <Link to="/login">Social Inclusion</Link>
+                        </li>
+                        <li>
+                          <Link to="/login">Rights</Link>
                         </li>
                       </ul>
                     </div>
@@ -94,35 +110,35 @@ const Footer = (props) => {
                       <div className="footer-contact-info">
                         <div className="footer-address">
                           <p>
-                            <i>
+                            {/* <i>
                               <FeatherIcon
                                 icon="map-pin"
                                 style={{ width: "16px", height: "16px" }}
                               />
-                            </i>{" "}
-                            3556 Beech Street, USA
+                            </i>{" "} */}
+                            Privacy Policy
                           </p>
                         </div>
                         <div className="footer-address">
                           <p>
-                            <i>
+                            {/* <i>
                               <FeatherIcon
                                 icon="phone-call"
                                 style={{ width: "16px", height: "16px" }}
                               />
-                            </i>{" "}
-                            +1 315 369 5943
+                            </i>{" "} */}
+                            Cookie Policy
                           </p>
                         </div>
                         <div className="footer-address mb-0">
                           <p>
-                            <i>
+                            {/* <i>
                               <FeatherIcon
                                 icon="mail"
                                 style={{ width: "16px", height: "16px" }}
                               />
-                            </i>{" "}
-                            doccure@example.com
+                            </i>{" "} */}
+                            Terms and Conditions
                           </p>
                         </div>
                       </div>
@@ -182,12 +198,12 @@ const Footer = (props) => {
                         <p className="mb-0">
                           {" "}
                           Copyright © 2023{" "}
-                          <Link
+                          {/* <Link
                             to="https://themeforest.net/user/dreamguys/portfolio"
                             target="_blank"
                           >
                             Dreamguys.
-                          </Link>{" "}
+                          </Link>{" "} */}
                           All Rights Reserved
                         </p>
                       </div>
