@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 // import Select from "react-select";
 // import SearchFilter from "./searchFilter";
-import SearchList from "./searchList";
-import StickyBox from "react-sticky-box";
-import Header from "../../header";
-import Footer from "../../footer";
-import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Link } from "react-router-dom";
+import StickyBox from "react-sticky-box";
 import { userRequestLdExplained } from "../../../../../requestMethod";
-import {useValue} from "../../../../context/ContextProvider";
 import FeatherIcon from "feather-icons-react/build/FeatherIcon";
 import { API_TOKEN } from "../../../../constant";
 console.log(API_TOKEN, "API_TOKEN");
+import { useValue } from "../../../../context/ContextProvider";
+import Footer from "../../footer";
+import Header from "../../header";
+import SearchList from "./searchList";
 
 const SearchDoctor = (props) => {
   const {
@@ -101,14 +101,7 @@ const SearchDoctor = (props) => {
   const handleSearch = async () => {
     console.log("gg");       
     try {
-      let response = await userRequestLdExplained.get(`/doctors/getDoctorsDetails`,{
-          headers:{
-            Authorization:`Bearer ${API_TOKEN}`,
-            "Content-Type": "application/json",
-          }
-        }
-      );
-
+      let response = await userRequestLdExplained.get(`/doctors/getDoctorsDetailsByFilter`);
       console.log(response.data, "<==data List");
       setDoctorList(response.data);
       dispatch({ type: "DOCTER_FILTERED_LIST", payload: response.data });
