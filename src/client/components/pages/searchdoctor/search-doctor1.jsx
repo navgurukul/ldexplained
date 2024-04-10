@@ -63,52 +63,26 @@ const SearchDoctor = (props) => {
     setSelectedSpecialists(newSpecialists);
   };
 
-  // const concatenateValues = (array) => array.join("").toLowerCase();
-
-  // const handleSearch = () => {
-  //   console.log("Selected Genders:", selectedGenders);
-  //   console.log("Selected Specialists:", selectedSpecialists);
-  //   // Perform API call or any other action here
-  //   searchDoctorFilter();
-  // };
-
-  // const handleSearch = async () => {
-  //   console.log("gg");
-  //   const concatenatedGenders = concatenateValues(selectedGenders);
-  //   const concatenatedSpecialists = concatenateValues(selectedSpecialists);
-
-  //   let queryString = "";
-  //   if (concatenatedGenders || concatenatedSpecialists) {
-  //     queryString += "?";
-  //     if (concatenatedGenders) queryString += `gender=${concatenatedGenders}`;
-  //     if (concatenatedGenders && concatenatedSpecialists) queryString += "&";
-  //     if (concatenatedSpecialists)
-  //       queryString += `specialization=${concatenatedSpecialists}`;
-  //   }
-  //   console.log(queryString, "queryStringqueryString");
-  //   try {
-  //     let response = await userRequestLdExplained.get(
-  //       `/doctors/getDoctorsDetailsByFilter${queryString}`
-  //     );
-  //     console.log(response.data, "<==data List");
-  //     setDoctorList(response.data);
-  //     dispatch({ type: "DOCTER_FILTERED_LIST", payload: response.data });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const concatenateValues = (array) => array.join("").toLowerCase();
 
   const handleSearch = async () => {
-    console.log("gg");       
-    try {
-      let response = await userRequestLdExplained.get(`/doctors/getDoctorsDetails`,{
-          headers:{
-            Authorization:`Bearer ${API_TOKEN}`,
-            "Content-Type": "application/json",
-          }
-        }
-      );
+    console.log("gg");
+    const concatenatedGenders = concatenateValues(selectedGenders);
+    const concatenatedSpecialists = concatenateValues(selectedSpecialists);
 
+    let queryString = "";
+    if (concatenatedGenders || concatenatedSpecialists) {
+      queryString += "?";
+      if (concatenatedGenders) queryString += `gender=${concatenatedGenders}`;
+      if (concatenatedGenders && concatenatedSpecialists) queryString += "&";
+      if (concatenatedSpecialists)
+        queryString += `specialization=${concatenatedSpecialists}`;
+    }
+    console.log(queryString, "queryStringqueryString");
+    try {
+      let response = await userRequestLdExplained.get(
+        `/doctors/getDoctorsDetailsByFilter${queryString}`
+      );
       console.log(response.data, "<==data List");
       setDoctorList(response.data);
       dispatch({ type: "DOCTER_FILTERED_LIST", payload: response.data });
@@ -116,6 +90,25 @@ const SearchDoctor = (props) => {
       console.log(err);
     }
   };
+
+  // const handleSearch = async () => {
+  //   console.log("gg");       
+  //   try {
+  //     let response = await userRequestLdExplained.get(`/doctors/getDoctorsDetails`,{
+  //         headers:{
+  //           Authorization:`Bearer ${API_TOKEN}`,
+  //           "Content-Type": "application/json",
+  //         }
+  //       }
+  //     );
+
+  //     console.log(response.data, "<==data List");
+  //     setDoctorList(response.data);
+  //     dispatch({ type: "DOCTER_FILTERED_LIST", payload: response.data });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   useEffect(() => {
     handleSearch();
