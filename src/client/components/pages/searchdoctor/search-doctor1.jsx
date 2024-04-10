@@ -65,13 +65,6 @@ const SearchDoctor = (props) => {
 
   const concatenateValues = (array) => array.join("").toLowerCase();
 
-  // const handleSearch = () => {
-  //   console.log("Selected Genders:", selectedGenders);
-  //   console.log("Selected Specialists:", selectedSpecialists);
-  //   // Perform API call or any other action here
-  //   searchDoctorFilter();
-  // };
-
   const handleSearch = async () => {
     console.log("gg");
     const concatenatedGenders = concatenateValues(selectedGenders);
@@ -101,8 +94,14 @@ const SearchDoctor = (props) => {
   // const handleSearch = async () => {
   //   console.log("gg");       
   //   try {
-  //     let response = await userRequestLdExplained.get(`/doctors/getDoctorsDetailsByFilter` 
+  //     let response = await userRequestLdExplained.get(`/doctors/getDoctorsDetails`,{
+  //         headers:{
+  //           Authorization:`Bearer ${API_TOKEN}`,
+  //           "Content-Type": "application/json",
+  //         }
+  //       }
   //     );
+
   //     console.log(response.data, "<==data List");
   //     setDoctorList(response.data);
   //     dispatch({ type: "DOCTER_FILTERED_LIST", payload: response.data });
