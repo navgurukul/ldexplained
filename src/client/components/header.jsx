@@ -236,7 +236,7 @@ const Header = () => {
                   ) : (
                     <>
                     {/* <Link to="https://www.ldexplained.com/index.html"> */}
-                    <Link to="https://www.ldexplained.com/index.html">
+                    <Link to="/">
                     <img src={Logo_Nav} className="img-fluid"
                       alt="Logo" />
                     </Link>

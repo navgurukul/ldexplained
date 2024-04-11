@@ -32,6 +32,7 @@ import Header from "../../header.jsx";
 
 const Dashboard = (props) => {
   const [count, setCount] = useState(1, 2, 3, 4);
+  const [appoiments, setAppoiments] = useState([1, 2, 3, 4]);
 
   const [selectedDate, setSelectedDate] = useState(null);
   // constructor(props) {
@@ -43,7 +44,7 @@ const Dashboard = (props) => {
   // }
   const handleDateChange = (date) => {
     setSelectedDate(date);
-   };
+  };
   return (
     <>
       <Header {...props} />
@@ -76,8 +77,8 @@ const Dashboard = (props) => {
                 <DashboardSidebar />
               </StickyBox>
             </div>
-            <div className="col-md-7 col-lg-8 col-xl-9"  >
-              <div  >
+            <div className="col-md-7 col-lg-8 col-xl-9">
+              <div>
                 {/* <div className="row" style={{border:"1px solid red"}}>
                   <div className="col-12 col-md-6 col-lg-4 col-xl-3 patient-dashboard-top">
                     <div className="card">
@@ -130,90 +131,96 @@ const Dashboard = (props) => {
                     </div>
                   </div>
                 </div> */}
-                <div className="row patient-graph-col"   >
-                <div
-                  className="search-box-one aos"
-                  data-aos="fade-up"
-                  style={{
-                    padding: "10px 20px",
-                    width: "900px",   
-                    marginLeft:"130px",
-                  }}
-                >
-                  <span style={{margin:"40px 0px"}}>Book Appointment Form </span>
-                  <form action={`/patient/search-doctor1`}>
-                    <div className="search-input search-line">
-                      <i>
-                        <FeatherIcon icon="search" style={{ width: "16px" }} />
-                      </i>
-                      <div className="form-group mb-0">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Search doctors, clinics, hospitals, etc"
-                        />
+                <div className="row patient-graph-col">
+                  <div
+                    className="search-box-one aos"
+                    data-aos="fade-up"
+                    style={{
+                      padding: "10px 20px",
+                      width: "900px",
+                      marginLeft: "130px",
+                    }}
+                  >
+                    <span style={{ margin: "40px 0px" }}>
+                      Book Appointment Form{" "}
+                    </span>
+                    <form action={`/patient/search-doctor1`}>
+                      <div className="search-input search-line">
+                        <i>
+                          <FeatherIcon
+                            icon="search"
+                            style={{ width: "16px" }}
+                          />
+                        </i>
+                        <div className="form-group mb-0">
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Search doctors, clinics, hospitals, etc"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="search-input search-map-line">
-                      <i>
-                        <FeatherIcon icon="map-pin" style={{ width: "16px" }} />
-                      </i>
+                      <div className="search-input search-map-line">
+                        <i>
+                          <FeatherIcon
+                            icon="map-pin"
+                            style={{ width: "16px" }}
+                          />
+                        </i>
+                        <div className="form-group mb-0" style={{}}>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Location"
+                          />
+                          <Link
+                            className="current-loc-icon current_location"
+                            to="#"
+                          >
+                            <i>
+                              <FeatherIcon
+                                icon="crosshair"
+                                style={{ width: "16px" }}
+                              />
+                            </i>
+                          </Link>
+                        </div>
+                      </div>
                       <div
-                        className="form-group mb-0"
-                        style={{  }}
+                        className="search-input search-calendar-line"
+                        style={{
+                          width: "180px",
+                        }}
                       >
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Location"
-                        />
-                        <Link
-                          className="current-loc-icon current_location"
-                          to="#"
+                        <i>
+                          <FeatherIcon
+                            icon={"calendar"}
+                            // style={{ width: "16px" }}
+                          />
+                        </i>
+                        <div className="form-group mb-0">
+                          <DatePicker
+                            className="form-control datetimepicker"
+                            selected={selectedDate}
+                            onChange={handleDateChange}
+                            placeholderText="Date"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="form-search-btn"
+                        style={{ width: "150px" }}
+                      >
+                        <button
+                          className="btn"
+                          type="submit"
+                          style={{ width: "100%" }}
                         >
-                          <i>
-                            <FeatherIcon
-                              icon="crosshair"
-                              style={{ width: "16px" }}
-                            />
-                          </i>
-                        </Link>
+                          Search Docter
+                        </button>
                       </div>
-                    </div>
-                    <div
-                      className="search-input search-calendar-line"
-                      style={{  
-                       width: "180px" }}
-                    >
-                      <i>
-                        <FeatherIcon
-                          icon={"calendar"}
-                          // style={{ width: "16px" }}
-                        />
-                      </i>
-                      <div className="form-group mb-0">
-                        <DatePicker
-                          className="form-control datetimepicker"
-                          selected={selectedDate}
-                          onChange={handleDateChange}
-                          placeholderText="Date"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className="form-search-btn"
-                      style={{  width: "150px" }}
-                    >
-                      <button
-                        className="btn"
-                        type="submit"
-                        style={{ width: "100%" }}
-                      >
-                        Search Docter
-                      </button>
-                    </div>
-                  </form>
-                </div>
+                    </form>
+                  </div>
                   {/* <div className="col-12">
                     <div className="card">
                       <div className="card-header">
@@ -303,10 +310,11 @@ const Dashboard = (props) => {
                   </div> */}
                 </div>
               </div>
-              <div className="card">
-                <div className="card-body pt-0">
+              {/* <div className="card mt-5"> */}
+                <div className="card-body pt-5">
+                  <h1 className="text-lg py-3">Appoiments</h1>
                   {/* <!-- Tab Menu --> */}
-                  <nav className="user-tabs mb-4">
+                  {/* <nav className="user-tabs mb-4">
                     <ul className="nav nav-tabs nav-tabs-bottom nav-justified">
                       <li className="nav-item">
                         <Link
@@ -317,316 +325,91 @@ const Dashboard = (props) => {
                           Appointments
                         </Link>
                       </li>
-                      <li className="nav-item">
-                        <Link
-                          className="nav-link"
-                          to="#pat_prescriptions"
-                          data-bs-toggle="tab"
-                        >
-                          Prescriptions
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link
-                          className="nav-link"
-                          to="#pat_medical_records"
-                          data-bs-toggle="tab"
-                        >
-                          <span className="med-records">Medical Records</span>
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link
-                          className="nav-link"
-                          to="#pat_billing"
-                          data-bs-toggle="tab"
-                        >
-                          Billing
-                        </Link>
-                      </li>
                     </ul>
-                  </nav>
+                  </nav> */}
                   {/* <!-- /Tab Menu --> */}
-                  <div className="tab-content pt-0">
+                  {/* <div className="tab-content pt-0">
                     <div
                       id="pat_appointments"
                       className="tab-pane fade show active"
-                    >
+                    > */}
                       <div className="card card-table mb-0">
                         <div className="card-body">
                           <div className="table-responsive">
                             <table className="table table-hover table-center mb-0">
                               <thead>
                                 <tr>
-                                  <th>Doctor</th>
-                                  <th>Appt Date</th>
+                                  <th>Expert Name</th>
+                                  <th>Child's Name Date</th>
+                                  <th>Appoiment Date</th>
                                   <th>Booking Date</th>
                                   <th>Amount</th>
                                   <th>Follow Up</th>
                                   <th>Status</th>
-                                  <th></th>
+                                  <th>Actions</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>
-                                    <h2 className="table-avatar">
-                                      <Link
-                                        to="/patient/doctor-profile"
-                                        className="avatar avatar-sm me-2"
-                                      >
-                                        <img
-                                          className="avatar-img rounded-circle"
-                                          src={IMG01}
-                                          alt="User"
-                                        />
-                                      </Link>
-                                      <Link to="/patient/doctor-profile">
-                                        Dr. Ruby Perrin <span>Dental</span>
-                                      </Link>
-                                    </h2>
-                                  </td>
-                                  <td>
-                                    14 Nov 2019{" "}
-                                    <span className="d-block text-info">
-                                      10.00 AM
-                                    </span>
-                                  </td>
-                                  <td>12 Nov 2019</td>
-                                  <td>$160</td>
-                                  <td>16 Nov 2019</td>
-                                  <td>
-                                    <span className="badge rounded-pill bg-success-light">
-                                      Confirm
-                                    </span>
-                                  </td>
-                                  <td className="text-end">
-                                    <div className="table-action">
-                                      <Link
-                                        to="#0"
-                                        className="btn btn-sm bg-primary-light"
-                                      >
-                                        <i className="fas fa-print"></i> Print
-                                      </Link>
-                                      &nbsp;
-                                      <Link
-                                        to="#0"
-                                        className="btn btn-sm bg-info-light"
-                                      >
-                                        <i className="far fa-eye"></i> View
-                                      </Link>
-                                    </div>
-                                  </td>
-                                </tr>
-
-                                <tr>
-                                  <td>
-                                    <h2 className="table-avatar">
-                                      <Link
-                                        to="/patient/doctor-profile"
-                                        className="avatar avatar-sm me-2"
-                                      >
-                                        <img
-                                          className="avatar-img rounded-circle"
-                                          src={IMG07}
-                                          alt="User"
-                                        />
-                                      </Link>
-                                      <Link to="/patient/doctor-profile">
-                                        Dr. Linda Tobin <span>Neurology</span>
-                                      </Link>
-                                    </h2>
-                                  </td>
-                                  <td>
-                                    8 Nov 2019{" "}
-                                    <span className="d-block text-info">
-                                      6.00 PM
-                                    </span>
-                                  </td>
-                                  <td>6 Nov 2019</td>
-                                  <td>$450</td>
-                                  <td>10 Nov 2019</td>
-                                  <td>
-                                    <span className="badge rounded-pill bg-success-light">
-                                      Confirm
-                                    </span>
-                                  </td>
-                                  <td className="text-end">
-                                    <div className="table-action">
-                                      <Link
-                                        className="btn btn-sm bg-primary-light"
-                                        to="#0"
-                                      >
-                                        <i className="fas fa-print"></i> Print
-                                      </Link>
-                                      &nbsp;
-                                      <Link
-                                        className="btn btn-sm bg-info-light"
-                                        to="#0"
-                                      >
-                                        <i className="far fa-eye"></i> View
-                                      </Link>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <h2 className="table-avatar">
-                                      <Link
-                                        to="/patient/doctor-profile"
-                                        className="avatar avatar-sm me-2"
-                                      >
-                                        <img
-                                          className="avatar-img rounded-circle"
-                                          src={IMG08}
-                                          alt="User"
-                                        />
-                                      </Link>
-                                      <Link to="/patient/doctor-profile">
-                                        Dr. Paul Richard{" "}
-                                        <span>Dermatology</span>
-                                      </Link>
-                                    </h2>
-                                  </td>
-                                  <td>
-                                    7 Nov 2019{" "}
-                                    <span className="d-block text-info">
-                                      9.00 PM
-                                    </span>
-                                  </td>
-                                  <td>7 Nov 2019</td>
-                                  <td>$275</td>
-                                  <td>9 Nov 2019</td>
-                                  <td>
-                                    <span className="badge rounded-pill bg-success-light">
-                                      Confirm
-                                    </span>
-                                  </td>
-                                  <td className="text-end">
-                                    <div className="table-action">
-                                      <Link
-                                        to="#0"
-                                        className="btn btn-sm bg-primary-light"
-                                      >
-                                        <i className="fas fa-print"></i> Print
-                                      </Link>
-                                      &nbsp;
-                                      <Link
-                                        to="#0"
-                                        className="btn btn-sm bg-info-light"
-                                      >
-                                        <i className="far fa-eye"></i> View
-                                      </Link>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <h2 className="table-avatar">
-                                      <Link
-                                        to="/patient/doctor-profile"
-                                        className="avatar avatar-sm me-2"
-                                      >
-                                        <img
-                                          className="avatar-img rounded-circle"
-                                          src={IMG09}
-                                          alt="User"
-                                        />
-                                      </Link>
-                                      <Link to="/patient/doctor-profile">
-                                        Dr. John Gibbs <span>Dental</span>
-                                      </Link>
-                                    </h2>
-                                  </td>
-                                  <td>
-                                    6 Nov 2019{" "}
-                                    <span className="d-block text-info">
-                                      8.00 PM
-                                    </span>
-                                  </td>
-                                  <td>4 Nov 2019</td>
-                                  <td>$600</td>
-                                  <td>8 Nov 2019</td>
-                                  <td>
-                                    <span className="badge rounded-pill bg-success-light">
-                                      Confirm
-                                    </span>
-                                  </td>
-                                  <td className="text-end">
-                                    <div className="table-action">
-                                      <Link
-                                        to="#0"
-                                        className="btn btn-sm bg-primary-light"
-                                      >
-                                        <i className="fas fa-print"></i> Print
-                                      </Link>
-                                      &nbsp;
-                                      <Link
-                                        to="#0"
-                                        className="btn btn-sm bg-info-light"
-                                      >
-                                        <i className="far fa-eye"></i> View
-                                      </Link>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <h2 className="table-avatar">
-                                      <Link
-                                        to="/patient/doctor-profile"
-                                        className="avatar avatar-sm me-2"
-                                      >
-                                        <img
-                                          className="avatar-img rounded-circle"
-                                          src={IMG10}
-                                          alt="User "
-                                        />
-                                      </Link>
-                                      <Link to="/patient/doctor-profile">
-                                        Dr. Olga Barlow <span>Dental</span>
-                                      </Link>
-                                    </h2>
-                                  </td>
-                                  <td>
-                                    5 Nov 2019{" "}
-                                    <span className="d-block text-info">
-                                      5.00 PM
-                                    </span>
-                                  </td>
-                                  <td>1 Nov 2019</td>
-                                  <td>$100</td>
-                                  <td>7 Nov 2019</td>
-                                  <td>
-                                    <span className="badge rounded-pill bg-success-light">
-                                      Confirm
-                                    </span>
-                                  </td>
-                                  <td className="text-end">
-                                    <div className="table-action">
-                                      <Link
-                                        to="#0"
-                                        className="btn btn-sm bg-primary-light"
-                                      >
-                                        <i className="fas fa-print"></i> Print
-                                      </Link>
-                                      &nbsp;
-                                      <Link
-                                        to="#0"
-                                        className="btn btn-sm bg-info-light"
-                                      >
-                                        <i className="far fa-eye"></i> View
-                                      </Link>
-                                    </div>
-                                  </td>
-                                </tr>
+                                {appoiments.map((appoiment) => (
+                                  <tr>
+                                    <td>
+                                      <h2 className="table-avatar">
+                                        <Link
+                                          to="/patient/doctor-profile"
+                                          className="avatar avatar-sm me-2"
+                                        >
+                                          <img
+                                            className="avatar-img rounded-circle"
+                                            src={IMG01}
+                                            alt="User"
+                                          />
+                                        </Link>
+                                        <Link to="/patient/doctor-profile">
+                                          Dr. Ruby Perrin <span>Dental</span>
+                                        </Link>
+                                      </h2>
+                                    </td>
+                                    <td>
+                                      14 Nov 2019{" "}
+                                      <span className="d-block text-info">
+                                        10.00 AM
+                                      </span>
+                                    </td>
+                                    <td>12 Nov 2019</td>
+                                    <td>12 Nov 2019</td>
+                                    <td>$160</td>
+                                    <td>12 Nov 2019</td>
+                                    <td>
+                                      <span className="badge rounded-pill bg-success-light">
+                                        Confirm
+                                      </span>
+                                    </td>
+                                    <td className="text-end">
+                                      <div className="table-action">
+                                        <Link
+                                          to="#0"
+                                          className="btn btn-sm bg-info-light"
+                                        >
+                                          <i className="far fa-eye"></i> View
+                                        </Link>
+                                        &nbsp;
+                                        <Link
+                                          to="#0"
+                                          className="btn btn-sm bg-primary-light"
+                                        >
+                                          <i className="fas fa-print"></i> Print
+                                        </Link>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                ))}
                               </tbody>
                             </table>
                           </div>
                         </div>
                       </div>
                     </div>
-
+{/* 
                     <div className="tab-pane fade" id="pat_prescriptions">
                       <div className="card card-table mb-0">
                         <div className="card-body">
@@ -857,16 +640,16 @@ const Dashboard = (props) => {
                                     <div className="table-action">
                                       <Link
                                         to="#"
-                                        className="btn btn-sm bg-primary-light"
+                                        className="btn btn-sm bg-info-light"
                                       >
-                                        <i className="fas fa-print"></i> Print
+                                        <i className="far fa-eye"></i> View
                                       </Link>
                                       &nbsp;
                                       <Link
                                         to="#"
-                                        className="btn btn-sm bg-info-light"
+                                        className="btn btn-sm bg-primary-light"
                                       >
-                                        <i className="far fa-eye"></i> View
+                                        <i className="fas fa-print"></i> Print
                                       </Link>
                                     </div>
                                   </td>
@@ -1405,9 +1188,9 @@ const Dashboard = (props) => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
+                  </div> */}
+                {/* </div> */}
+              {/* </div> */}
             </div>
           </div>
         </div>

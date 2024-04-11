@@ -35,63 +35,24 @@ export const DashboardSidebar = () => {
             </li>
             <li className={pathname.includes("/favourites") ? "active" : ""}>
               <Link to="/patient/favourites">
-                <i className="fas fa-bookmark"></i>
-                <span>Favourites</span>
+                <i className="fas fa-bookmark"></i> <span>Favourites</span>
               </Link>
             </li>
             <li className={pathname.includes("/dependent") ? "active" : ""}>
               <Link to="/patient/dependent">
-                <i className="fas fa-users"></i>
-                <span>Child Screening Detail</span>
-              </Link>
-            </li>
-            <li className={pathname.includes("/chat-doctor") ? "active" : ""}>
-              <Link to="/patient/patient-chat">
-                <i className="fas fa-comments"></i>
-                <span>Message</span>
-                <small className="unread-msg">23</small>
-              </Link>
-            </li>
-            <li className={pathname.includes("/accounts") ? "active" : ""}>
-              <Link to="/patient/accounts">
-                <i className="fas fa-file-invoice-dollar"></i>
-                <span>Accounts</span>
-              </Link>
-            </li>
-            <li className={pathname.includes("/orders") ? "active" : ""}>
-              <Link to="/patient/orders">
-                <i className="fas fa-list-alt"></i>
-                <span>Orders</span>
-                <small className="unread-msg">7</small>
-              </Link>
-            </li>
-            <li
-              className={pathname.includes("/medicalrecords") ? "active" : ""}
-            >
-              <Link to="/patient/medicalrecords">
-                <i className="fas fa-clipboard"></i>
-                <span>Add Medical Records</span>
-              </Link>
-            </li>
-            <li
-              className={pathname.includes("/medicaldetails") ? "active" : ""}
-            >
-              <Link to="/patient/medicaldetails">
-                <i className="fas fa-file-medical-alt"></i>
-                <span>Medical Details</span>
+                <i className="fas fa-bookmark"></i>
+                <span>Dependent (My Children)</span>
               </Link>
             </li>
             <li className={pathname.includes("/profile") ? "active" : ""}>
               <Link to="/patient/profile">
-                <i className="fas fa-user-cog"></i>
+                <i className="fas fa-users"></i>
                 <span>Profile Settings</span>
               </Link>
             </li>
-            <li
-              className={pathname.includes("/change-password") ? "active" : ""}
-            >
+            <li className={pathname.includes("/change-password") ? "active" : ""}>
               <Link to="/patient/change-password">
-                <i className="fas fa-lock"></i>
+                <i className="fas fa-file-invoice-dollar"></i>
                 <span>Change Password</span>
               </Link>
             </li>
