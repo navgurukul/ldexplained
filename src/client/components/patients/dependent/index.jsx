@@ -113,7 +113,7 @@ const addChildDataForScreening = async (payload)=>{
                           className="btn btn-primary btn-sm"
                           tabIndex={0}
                         >
-                          Add Dependent
+                          Add Child
                         </a>
                       </div>
                     </div>

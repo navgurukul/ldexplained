@@ -33,26 +33,26 @@ export const DashboardSidebar = () => {
                 <span>Dashboard</span>
               </Link>
             </li>
-            <li className={pathname.includes("/favourites") ? "active" : ""}>
-              <Link to="/patient/favourites">
-                <i className="fas fa-bookmark"></i> <span>Favourites</span>
-              </Link>
-            </li>
             <li className={pathname.includes("/dependent") ? "active" : ""}>
               <Link to="/patient/dependent">
-                <i className="fas fa-bookmark"></i>
-                <span>Dependent (My Children)</span>
+              <i className="fas fa-users"></i>
+                <span>My Children</span>
+              </Link>
+            </li>
+            <li className={pathname.includes("/favourites") ? "active" : ""}>
+              <Link to="/patient/favourites">
+                <i className="fas fa-bookmark"></i> <span>Favourites Experts</span>
               </Link>
             </li>
             <li className={pathname.includes("/profile") ? "active" : ""}>
               <Link to="/patient/profile">
-                <i className="fas fa-users"></i>
+              <i className="fas fa-user-cog"></i>
                 <span>Profile Settings</span>
               </Link>
             </li>
             <li className={pathname.includes("/change-password") ? "active" : ""}>
               <Link to="/patient/change-password">
-                <i className="fas fa-file-invoice-dollar"></i>
+              <i className="fas fa-lock"></i>
                 <span>Change Password</span>
               </Link>
             </li>

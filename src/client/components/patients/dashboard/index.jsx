@@ -311,10 +311,10 @@ const Dashboard = (props) => {
                 </div>
               </div>
               {/* <div className="card mt-5"> */}
-                <div className="card-body pt-5">
-                  <h1 className="text-lg py-3">Appoiments</h1>
-                  {/* <!-- Tab Menu --> */}
-                  {/* <nav className="user-tabs mb-4">
+              <div className="card-body pt-5">
+                <h1 className="text-lg py-3">Appoiments</h1>
+                {/* <!-- Tab Menu --> */}
+                {/* <nav className="user-tabs mb-4">
                     <ul className="nav nav-tabs nav-tabs-bottom nav-justified">
                       <li className="nav-item">
                         <Link
@@ -327,89 +327,84 @@ const Dashboard = (props) => {
                       </li>
                     </ul>
                   </nav> */}
-                  {/* <!-- /Tab Menu --> */}
-                  {/* <div className="tab-content pt-0">
+                {/* <!-- /Tab Menu --> */}
+                {/* <div className="tab-content pt-0">
                     <div
                       id="pat_appointments"
                       className="tab-pane fade show active"
                     > */}
-                      <div className="card card-table mb-0">
-                        <div className="card-body">
-                          <div className="table-responsive">
-                            <table className="table table-hover table-center mb-0">
-                              <thead>
-                                <tr>
-                                  <th>Expert Name</th>
-                                  <th>Child's Name Date</th>
-                                  <th>Appoiment Date</th>
-                                  <th>Booking Date</th>
-                                  <th>Amount</th>
-                                  <th>Follow Up</th>
-                                  <th>Status</th>
-                                  <th>Actions</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {appoiments.map((appoiment) => (
-                                  <tr>
-                                    <td>
-                                      <h2 className="table-avatar">
-                                        <Link
-                                          to="/patient/doctor-profile"
-                                          className="avatar avatar-sm me-2"
-                                        >
-                                          <img
-                                            className="avatar-img rounded-circle"
-                                            src={IMG01}
-                                            alt="User"
-                                          />
-                                        </Link>
-                                        <Link to="/patient/doctor-profile">
-                                          Dr. Ruby Perrin <span>Dental</span>
-                                        </Link>
-                                      </h2>
-                                    </td>
-                                    <td>
-                                      14 Nov 2019{" "}
-                                      <span className="d-block text-info">
-                                        10.00 AM
-                                      </span>
-                                    </td>
-                                    <td>12 Nov 2019</td>
-                                    <td>12 Nov 2019</td>
-                                    <td>$160</td>
-                                    <td>12 Nov 2019</td>
-                                    <td>
-                                      <span className="badge rounded-pill bg-success-light">
-                                        Confirm
-                                      </span>
-                                    </td>
-                                    <td className="text-end">
-                                      <div className="table-action">
-                                        <Link
-                                          to="#0"
-                                          className="btn btn-sm bg-info-light"
-                                        >
-                                          <i className="far fa-eye"></i> View
-                                        </Link>
-                                        &nbsp;
-                                        <Link
-                                          to="#0"
-                                          className="btn btn-sm bg-primary-light"
-                                        >
-                                          <i className="fas fa-print"></i> Print
-                                        </Link>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
+                <div className="card card-table mb-0">
+                  <div className="card-body">
+                    <div className="table-responsive">
+                      <table className="table table-hover table-center mb-0">
+                        <thead>
+                          <tr>
+                            <th>Expert Name</th>
+                            <th>Child's Name</th>
+                            <th>Appoiment Date</th>
+                            <th>Booking Date</th>
+                            <th>Amount</th>
+                            <th>Follow Up</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {appoiments.map((appoiment) => (
+                            <tr>
+                              <td>
+                                <h2 className="table-avatar">
+                                  <Link
+                                    to="/patient/doctor-profile"
+                                    className="avatar avatar-sm me-2"
+                                  >
+                                    <img
+                                      className="avatar-img rounded-circle"
+                                      src={IMG01}
+                                      alt="User"
+                                    />
+                                  </Link>
+                                  <Link to="/patient/doctor-profile">
+                                    Dr. Ruby Perrin <span>Dental</span>
+                                  </Link>
+                                </h2>
+                              </td>
+                              <td>Pratik Deshmukh</td>
+                              <td>12 Nov 2019</td>
+                              <td>12 Nov 2019</td>
+                              <td>$160</td>
+                              <td> - </td>
+                              <td>
+                                <span className="badge rounded-pill bg-success-light">
+                                  Confirm
+                                </span>
+                              </td>
+                              <td className="text-end">
+                                <div className="table-action">
+                                  <Link
+                                    to="#0"
+                                    className="btn btn-sm bg-info-light"
+                                  >
+                                    <i className="far fa-eye"></i> View
+                                  </Link>
+                                  &nbsp;
+                                  <Link
+                                    to="#0"
+                                    className="btn btn-sm bg-primary-light"
+                                  >
+                                    <i className="fas fa-print"></i> Print
+                                  </Link>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
-{/* 
+                  </div>
+                </div>
+              </div>
+              {/* 
                     <div className="tab-pane fade" id="pat_prescriptions">
                       <div className="card card-table mb-0">
                         <div className="card-body">
@@ -1189,7 +1184,7 @@ const Dashboard = (props) => {
                       </div>
                     </div>
                   </div> */}
-                {/* </div> */}
+              {/* </div> */}
               {/* </div> */}
             </div>
           </div>
