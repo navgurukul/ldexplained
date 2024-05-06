@@ -1,19 +1,44 @@
-import React, { useEffect } from "react";
-// import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import loginBanner from "../../assets/images/login-banner.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Header from "../header";
 import Footer from "../footer";
+import { userRequestLdExplained } from "../../../../requestMethod";
+import toast from "react-hot-toast";
+import Cookies from 'universal-cookie';
+
+
 // const config = "/react/template/";
 
 const LoginContainer = (props) => {
   // const history = useHistory();
+  const [values, setValues] = React.useState({});
+  const cookies = new Cookies(null, { path: '/' });
+  const history = useHistory();
 
   useEffect(() => {
     document.body.classList.add("account-page");
 
     return () => document.body.classList.remove("account-page");
   }, []);
+
+  const handleSubmit =  async(e) => {
+    e.preventDefault();
+    toast.loading("Loging in...")
+    const response = await userRequestLdExplained.post("/google/simple-login", values);
+    toast.remove()
+    if (response.data.constructor.prototype == String()){
+      return toast.error(response.data)
+    }
+    cookies.set('token', response.data.token);
+    toast.success("Login successful")
+    history.push("/patient/dashboard")
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
 
   return (
     <>
@@ -41,10 +66,13 @@ const LoginContainer = (props) => {
                           Login <span>Doccure</span>
                         </h3>
                       </div>
-                      <form>
+                      <form onSubmit={handleSubmit}>
                         <div className="form-group form-focus">
                           <input
                             type="email"
+                            name="email"
+                            required
+                            onChange={handleChange}
                             className="form-control floating"
                           />
                           <label className="focus-label">Email</label>
@@ -52,6 +80,9 @@ const LoginContainer = (props) => {
                         <div className="form-group form-focus">
                           <input
                             type="password"
+                            name="password"
+                            required
+                            onChange={handleChange}
                             className="form-control floating"
                           />
                           <label className="focus-label">Password</label>
@@ -64,20 +95,23 @@ const LoginContainer = (props) => {
                             Forgot Password ?
                           </Link>
                         </div>
-                        
-                        <Link to="/index"
-                          className="btn btn-primary w-100 btn-lg login-btn"
+
+                        <button
                           type="submit"
+                          className="btn btn-primary w-100 btn-lg login-btn"
                         >
                           Login
-                        </Link>
+                        </button>
                         <div className="login-or">
                           <span className="or-line" />
                           <span className="span-or">or</span>
                         </div>
                         <div className="row form-row social-login">
                           <div className="col-6">
-                            <Link to="/index" className="btn btn-facebook w-100">
+                            <Link
+                              to="/index"
+                              className="btn btn-facebook w-100"
+                            >
                               <i className="fab fa-facebook-f me-1" /> Login
                             </Link>
                           </div>

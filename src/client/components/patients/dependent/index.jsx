@@ -13,6 +13,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import Header from "../../header.jsx";
 import { useHistory } from "react-router-dom";
 import { userRequestLdExplained } from "../../../../../requestMethod.js";
+import moment from "moment";
+import Cookies from "universal-cookie";
 
 const Dependent = (props) => {
   const history = useHistory();
@@ -20,53 +22,61 @@ const Dependent = (props) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [child, setChildData] = useState([])
+  const [child, setChildData] = useState([]);
+  const token = new Cookies(null, { path: "/" }).get("token");
+
   const handleChange = (date) => {
     setDate(date);
   };
 
   // http://ld_explained.navgurukul.org/children/parents?user_id=2
 
-  const fetchChildScreeningData = async () =>{
-    try{
-      let response = await userRequestLdExplained.get(`/children/parents?user_id=${2}`);
+  const fetchChildScreeningData = async () => {
+    try {
+      let response = await userRequestLdExplained.get(`/user/children`, {
+        headers: {
+          Authorization: token,
+        },
+      });
       console.log(response.data[1].childrenDetails, "<==data List children");
-      setChildData(response.data[1].childrenDetails)
-    }catch(err){
-      console.log(err)
+      setChildData(response.data[1].childrenDetails);
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchChildScreeningData();
-  },[])
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const payload = {
-      name: formData.get('name'),
-      gender: formData.get('gender'),
-      dob: formData.get('dob'),
+      name: formData.get("name"),
+      gender: formData.get("gender"),
+      dob: formData.get("dob"),
       // Add other fields if needed
     };
-    console.log('Payload:', payload); // Log the payload or send it to your desired endpoint
+    console.log("Payload:", payload); // Log the payload or send it to your desired endpoint
     // Clear the form or close the modal after submission if needed
     // setShow(false);
     // event.target.reset();
     addChildDataForScreening(payload);
   };
 
-const addChildDataForScreening = async (payload)=>{
-  try{
-    let response = await userRequestLdExplained.post('/children/parents', payload,{
-    
-    });
-    console.log(response, "<=child api");
-  }catch (err) {
-    console.error(err)
-  }
-}
+  const addChildDataForScreening = async (payload) => {
+    try {
+      let response = await userRequestLdExplained.post(
+        "/children/parents",
+        payload,
+        {}
+      );
+      console.log(response, "<=child api");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div>
@@ -137,9 +147,9 @@ const addChildDataForScreening = async (payload)=>{
                             </tr>
                           </thead>
 
-                          <tbody  >
+                          <tbody>
                             {child.map((childItem, index) => (
-                              <tr key={index} style={{border:"1px solid red"}}>
+                              <tr key={index}>
                                 <td>
                                   <h2 className="table-avatar">
                                     <span className="avatar avatar-sm me-2">
@@ -152,159 +162,28 @@ const addChildDataForScreening = async (payload)=>{
                                     {childItem.name}
                                   </h2>
                                 </td>
-                                <td>{childItem.dos.split('T')[0]}</td> {/* Assuming 'dos' represents Date of Birth (DOB) */}
-                                <td>{childItem.gender}</td>
-                                <td>Screening TBD</td> {/* Replace or update with actual data if available */}
                                 <td>
-                                <div className="table-action">
-                                  <button
-                                    className="btn btn-sm bg-info-light"
-                                    onClick={() => history.push('/path-to-screening')}
-                                  >
-                                    Do New Screening
-                                  </button>
-                                </div>
+                                  {moment(childItem.dos).format("DD MMM YYYY")}
+                                </td>
+                                {/* Assuming 'dos' represents Date of Birth (DOB) */}
+                                <td>{childItem.gender}</td>
+                                <td>Screening TBD</td>
+                                {/* Replace or update with actual data if available */}
+                                <td>
+                                  <div className="table-action">
+                                    <button
+                                      className="btn btn-sm bg-info-light"
+                                      onClick={() =>
+                                        history.push("/path-to-screening")
+                                      }
+                                    >
+                                      Do New Screening
+                                    </button>
+                                  </div>
                                 </td>
                               </tr>
                             ))}
-
-
-                            
-                             <tr>
-                              <td>
-                                <h2 className="table-avatar">
-                                  <span className="avatar avatar-sm me-2">
-                                    <img
-                                      className="avatar-img rounded-circle"
-                                      src={daughter}
-                                      alt="User Image"
-                                    />
-                                  </span>
-                                  Tressie
-                                </h2>
-                              </td>
-                              <td>Daughter</td>
-                              <td>Female</td>
-                              <td>360-822-9097</td>
-                              {/* <td>B+</td> */}
-                              <td>
-                                <div className="table-action">
-                                  {/* <a
-                                    href="#edit_form"
-                                    className="btn btn-sm bg-info-light"
-                                    data-bs-toggle="modal"
-                                    onClick={() => setEdit(true)}
-                                  >
-                                    {" "}
-                                    <i className="fas fa-edit" /> Edit
-                                  </a> */}
-                                  <a
-                                    href="https://www.ldexplained.com/screening/get-started/"
-                                    className="btn btn-sm bg-info-light"
-                                  >
-                                    Do New Screening
-                                  </a>
-                                  {/* <a
-                                    href="#"
-                                    className="btn btn-sm bg-danger-light"
-                                  >
-                                    <i className="fas fa-times" /> Deactive
-                                  </a> */}
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <h2 className="table-avatar">
-                                  <span className="avatar avatar-sm me-2">
-                                    <img
-                                      className="avatar-img rounded-circle"
-                                      src={father}
-                                      alt="User Image"
-                                    />
-                                  </span>
-                                  Champagne
-                                </h2>
-                              </td>
-                              <td>Father</td>
-                              <td>Male</td>
-                              <td>720-841-8299</td>
-                              {/* <td>B+</td> */}
-                              <td>
-                                <div className="table-action">
-                                  {/* <a
-                                    href="#edit_form"
-                                    className="btn btn-sm bg-info-light"
-                                    data-bs-toggle="modal"
-                                    onClick={() => setEdit(true)}
-                                  >
-                                    {" "}
-                                    <i className="fas fa-edit" /> Edit
-                                  </a>
-                                  &nbsp;
-                                  <a
-                                    href="#"
-                                    className="btn btn-sm bg-danger-light"
-                                  >
-                                    <i className="fas fa-times" /> Deactive
-                                  </a> */}
-                                  <a
-                                    href="https://www.ldexplained.com/screening/get-started/"
-                                    className="btn btn-sm bg-info-light"
-                                  >
-                                    Do New Screening
-                                  </a>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <h2 className="table-avatar">
-                                  <span className="avatar avatar-sm me-2">
-                                    <img
-                                      className="avatar-img rounded-circle"
-                                      src={mother}
-                                      alt="User Image"
-                                    />
-                                  </span>
-                                  Vena
-                                </h2>
-                              </td>
-                              <td>Mother</td>
-                              <td>Male</td>
-                              <td>949-583-4370</td>
-                              {/* <td>A+</td> */}
-                              <td>
-                                <div className="table-action">
-                                  {/* <a
-                                    href="#edit_form"
-                                    className="btn btn-sm bg-info-light"
-                                    data-bs-toggle="modal"
-                                    onClick={() => setEdit(true)}
-                                  >
-                                    {" "}
-                                    <i className="fas fa-edit" /> Edit
-                                  </a>
-                                  &nbsp;
-                                  <a
-                                    href="#"
-                                    className="btn btn-sm bg-danger-light"
-                                  >
-                                    <i className="fas fa-times" /> Deactive
-                                  </a> */}
-                                  <a
-                                    href="https://www.ldexplained.com/screening/get-started/"
-                                    className="btn btn-sm bg-info-light"
-                                  >
-                                    Do New Screening
-                                  </a>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody> 
-                          
-
-
+                          </tbody>
                         </table>
                       </div>
                     </div>

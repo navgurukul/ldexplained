@@ -33,6 +33,7 @@ import Favourties from "./client/components/patients/dashboard/favourties";
 import PatientDependent from "./client/components/patients/dependent";
 import Profile from "./client/components/patients/dashboard/profile";
 import Password from "./client/components/patients/dashboard/password";
+import { Toaster } from "react-hot-toast";
 
 const MyContainer = function (props) {
   // const config = "/react/template/";
@@ -107,63 +108,74 @@ const MyContainer = function (props) {
     }, []);
 
     return (
-      <Router basename={`${config.publicPath}`}>
-        <Switch>
-          <Route path="/" exact component={Generalhome} />
-          {/* <Route path="/patient/booking" exact component={Booking} /> */}
-          <Route path="/login" exact component={LoginContainer} />
-          <Route path="/register" exact component={Register} />
-          <Route
-            path="/pages/forgot-password"
-            exact
-            component={ForgotPassword}
-          />
-          <Route
-            path="/pages/forgot-password2"
-            exact
-            component={ForgotPassword2}
-          />
-          <Route path="/pages/login-email" exact component={LoginEmail} />
-          <Route path="/pages/login-phone" exact component={LoginPhone} />
-          <Route path="/pages/email-otp" exact component={LoginEmailOtp} />
-          <Route path="/pages/phone-otp" exact component={LoginPhoneOtp} />
-          <Route path="/pages/eotp" exact component={EmailOtp} />
-          <Route path="/pages/motp" exact component={MobileOtp} />
+      <div>
+        <Toaster position="bottom-right" />
+        <Router basename={`${config.publicPath}`}>
+          <Switch>
+            <Route path="/" exact component={Generalhome} />
+            {/* <Route path="/patient/booking" exact component={Booking} /> */}
+            <Route path="/login" exact component={LoginContainer} />
+            <Route path="/register" exact component={Register} />
+            <Route
+              path="/pages/forgot-password"
+              exact
+              component={ForgotPassword}
+            />
+            <Route
+              path="/pages/forgot-password2"
+              exact
+              component={ForgotPassword2}
+            />
+            <Route path="/pages/login-email" exact component={LoginEmail} />
+            <Route path="/pages/login-phone" exact component={LoginPhone} />
+            <Route path="/pages/email-otp" exact component={LoginEmailOtp} />
+            <Route path="/pages/phone-otp" exact component={LoginPhoneOtp} />
+            <Route path="/pages/eotp" exact component={EmailOtp} />
+            <Route path="/pages/motp" exact component={MobileOtp} />
 
-          <Route path="/pages/patient-signup" exact component={PatientSignup} />
-          <Route path="/pages/doctor-signup" exact component={DoctorSignup} />
-          <Route path="/success-signup" exact component={SuccessSignup} />
-          <Route path="/index-2" exact component={Home} />
-          <Route path="/signup" exact component={Signup} />
-          <Route
-            path="/patient/search-doctor1"
-            exact
-            component={SearchDoctor}
-          />
-          <Route path="/patient/booking1" exact component={Booking} />
-          <Route
-            path="/patient/doctor-profile/:id"
-            exact
-            component={DoctorProfile}
-          />
-          <Route path="/patient/checkout" exact component={Checkout} />
-          <Route
-            path="/patient/booking-success"
-            exact
-            component={BookingSuccess}
-          />
-          <Route path="/pages/invoice-view" exact component={InvoiceView} />
-          <Route path="/index" exact component={Generalhome} />
-          <Route path="/patient/dashboard" exact component={Dashboard} />
-          <Route path="/consultation" exact component={Consultation} />
-          <Route path="/patient/favourites" exact component={Favourties} />
-          <Route path="/patient/dependent" exact component={PatientDependent} />
-          <Route path="/patient/profile" exact component={Profile} />
-          <Route path="/patient/change-password" exact component={Password} />
-          <Route path="/pages/invoice-view" exact component={InvoiceView} />
-          <Route path="*" exact component={pagenotfound} />
-        </Switch>
-      </Router>
+            <Route
+              path="/pages/patient-signup"
+              exact
+              component={PatientSignup}
+            />
+            <Route path="/pages/doctor-signup" exact component={DoctorSignup} />
+            <Route path="/success-signup" exact component={SuccessSignup} />
+            <Route path="/index-2" exact component={Home} />
+            <Route path="/signup" exact component={Signup} />
+            <Route
+              path="/patient/search-doctor1"
+              exact
+              component={SearchDoctor}
+            />
+            <Route path="/patient/booking1" exact component={Booking} />
+            <Route
+              path="/patient/doctor-profile/:id"
+              exact
+              component={DoctorProfile}
+            />
+            <Route path="/patient/checkout" exact component={Checkout} />
+            <Route
+              path="/patient/booking-success"
+              exact
+              component={BookingSuccess}
+            />
+            <Route path="/pages/invoice-view" exact component={InvoiceView} />
+            <Route path="/index" exact component={Generalhome} />
+            <Route path="/patient/dashboard" exact component={Dashboard} />
+            <Route path="/consultation" exact component={Consultation} />
+            <Route path="/patient/favourites" exact component={Favourties} />
+            <Route
+              path="/patient/dependent"
+              exact
+              component={PatientDependent}
+            />
+            <Route path="/patient/profile" exact component={Profile} />
+            <Route path="/patient/change-password" exact component={Password} />
+            <Route path="/pages/invoice-view" exact component={InvoiceView} />
+            <Route path="*" exact component={pagenotfound} />
+          </Switch>
+        </Router>
+      </div>
     );
   }
   return null;

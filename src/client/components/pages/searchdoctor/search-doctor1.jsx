@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { userRequestLdExplained } from "../../../../../requestMethod";
-import {useValue} from "../../../../context/ContextProvider";
+import { useValue } from "../../../../context/ContextProvider";
 import FeatherIcon from "feather-icons-react/build/FeatherIcon";
 import { API_TOKEN } from "../../../../constant";
 console.log(API_TOKEN, "API_TOKEN");
@@ -81,7 +81,12 @@ const SearchDoctor = (props) => {
     console.log(queryString, "queryStringqueryString");
     try {
       let response = await userRequestLdExplained.get(
-        `/doctors/getDoctorsDetailsByFilter${queryString}`
+        `/favouriteDoctors/parents`,
+        {
+          headers: {
+            Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJwcmF0aWsxOEBuYXZndXJ1a3VsLm9yZyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxNDU1NjU0NSwiZXhwIjoxNzE0NTYwMTQ1fQ.AkNdDzxRJrQ-lxMIQmJfmxmVSIUNN1uscJqeRoSDutQ`,
+          },
+        }
       );
       console.log(response.data, "<==data List");
       setDoctorList(response.data);
@@ -92,7 +97,7 @@ const SearchDoctor = (props) => {
   };
 
   // const handleSearch = async () => {
-  //   console.log("gg");       
+  //   console.log("gg");
   //   try {
   //     let response = await userRequestLdExplained.get(`/doctors/getDoctorsDetails`,{
   //         headers:{
@@ -152,8 +157,8 @@ const SearchDoctor = (props) => {
           style={{
             padding: "10px 20px",
             width: "900px",
-            margin:"0px auto",
-            marginTop:"50px",
+            margin: "0px auto",
+            marginTop: "50px",
           }}
         >
           <span style={{ margin: "40px 0px" }}>Book Appointment Form </span>

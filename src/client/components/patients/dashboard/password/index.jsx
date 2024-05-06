@@ -4,8 +4,38 @@ import StickyBox from "react-sticky-box";
 import Footer from "../../../footer";
 import { Link } from "react-router-dom";
 import Header from "../../../header.jsx";
+import toast from "react-hot-toast";
+import { userRequestLdExplained } from "../../../../../../requestMethod.js";
+import Cookies from "universal-cookie";
 
 const Password = (props) => {
+  const [values, setValues] = React.useState({});
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    toast.loading("Updating passowrd...");
+    const response = await userRequestLdExplained.put(
+      "/google/update-password",
+      values,
+      {
+        headers: {
+          Authorization: new Cookies(null, { path: "/" }).get("token"),
+        },
+      }
+    );
+    toast.remove();
+    if (response.data.statusCode == 400) {
+      return toast.error(response.data.message);
+    }
+    toast.success("Passwword updated successfully");
+    setValues({});
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
+
   return (
     <div>
       <Header {...props} />
@@ -40,25 +70,43 @@ const Password = (props) => {
             <div className="col-md-7 col-lg-8 col-xl-9">
               <div className="card">
                 <div className="card-body">
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="form-group">
                       <label>Old Password</label>
-                      <input type="password" className="form-control" />
+                      <input
+                        required
+                        name="old_password"
+                        onChange={handleChange}
+                        type="password"
+                        className="form-control"
+                      />
                     </div>
                     <div className="form-group">
                       <label>New Password</label>
-                      <input type="password" className="form-control" />
+                      <input
+                        required
+                        name="new_password"
+                        onChange={handleChange}
+                        type="password"
+                        className="form-control"
+                      />
                     </div>
                     <div className="form-group">
                       <label>Confirm Password</label>
-                      <input type="password" className="form-control" />
+                      <input
+                        required
+                        name="confirm_password"
+                        onChange={handleChange}
+                        type="password"
+                        className="form-control"
+                      />
                     </div>
                     <div className="submit-section">
                       <button
                         type="submit"
                         className="btn btn-primary submit-btn"
                       >
-                        Save Changes
+                        Update Password
                       </button>
                     </div>
                   </form>
